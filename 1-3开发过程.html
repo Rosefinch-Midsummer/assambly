@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Mdbook Template</title>
-        <base href="/">
+        <title>1-3开发过程 - Mdbook Template</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="第1周汇编语言基础.html"><strong aria-hidden="true">2.</strong> 第1周汇编语言基础</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1-1硬件组成.html"><strong aria-hidden="true">2.1.</strong> 1-1硬件组成</a></li><li class="chapter-item expanded "><a href="1-2程序格式.html"><strong aria-hidden="true">2.2.</strong> 1-2程序格式</a></li><li class="chapter-item expanded "><a href="1-3开发过程.html"><strong aria-hidden="true">2.3.</strong> 1-3开发过程</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="第1周汇编语言基础.html"><strong aria-hidden="true">2.</strong> 第1周汇编语言基础</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1-1硬件组成.html"><strong aria-hidden="true">2.1.</strong> 1-1硬件组成</a></li><li class="chapter-item expanded "><a href="1-2程序格式.html"><strong aria-hidden="true">2.2.</strong> 1-2程序格式</a></li><li class="chapter-item expanded "><a href="1-3开发过程.html" class="active"><strong aria-hidden="true">2.3.</strong> 1-3开发过程</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,13 +171,151 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="1-3开发过程"><a class="header" href="#1-3开发过程">1-3开发过程</a></h1>
+<ul>
+<li><a href="#masm%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6">MASM开发软件</a></li>
+<li><a href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B9%B3%E5%8F%B0">操作系统平台</a></li>
+<li><a href="#%E6%BA%90%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B">源程序开发过程</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/1-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="masm开发软件"><a class="header" href="#masm开发软件">MASM开发软件</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131508760.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131510705.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131511649.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131512384.png" alt="" /></p>
+<p>汇编程序的作用是：将汇编语言程序转换为机器代码</p>
+<p>人们常会将汇编语言程序简称为汇编程序，但严格来说，两者是不同的。</p>
+<h2 id="操作系统平台"><a class="header" href="#操作系统平台">操作系统平台</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131518485.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131519304.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131520889.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131521488.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131522247.png" alt="" /></p>
+<p>相对操作简单的触屏、图形界面来说，字符输入的命令行虽然单调，确实最基本的交互方式；可以更深刻理解目录结构、文件路径等本质内容。</p>
+<h2 id="源程序开发过程"><a class="header" href="#源程序开发过程">源程序开发过程</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131532697.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131533521.png" alt="" /></p>
+<p>本机输出结果如下：</p>
+<pre><code>D:\MASM&gt;dir
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2023/10/13  15:30    &lt;DIR&gt;          .
+2023/10/13  15:30    &lt;DIR&gt;          ..
+2010/12/06  16:04    &lt;DIR&gt;          bin
+2010/10/27  18:18               211 CLRFILE.CV4
+2010/10/27  18:18               787 CURRENT.STS
+2010/12/06  16:05    &lt;DIR&gt;          CV
+2005/10/24  20:32                55 cv.bat
+2010/12/06  16:59                92 DOS16.bat
+2007/08/16  23:56               133 eg0000.asm
+2023/10/13  15:28            32,803 eg0000.exe
+2023/10/13  15:28            20,388 eg0000.ilk
+2023/10/13  15:28             4,234 eg0000.lst
+2023/10/13  15:28             1,611 eg0000.obj
+2023/10/13  15:28            74,752 eg0000.pdb
+2011/02/15  18:07               154 eg0800.asm
+2010/12/06  16:04    &lt;DIR&gt;          HELP
+2011/02/12  17:19             1,173 io16.inc
+2007/09/05  22:02             6,701 io16.lib
+2011/02/12  17:19             1,222 io32.inc
+2007/09/06  14:54            12,010 io32.lib
+2009/10/09  10:06             1,518 License.txt
+2011/08/03  19:53               239 make16.bat
+2009/07/05  12:11               257 make32.bat
+2011/02/12  17:13               289 make32a.bat
+2011/02/11  21:58               266 make32w.bat
+2009/10/09  11:53         1,064,960 Notepad2.exe
+2009/10/26  11:06            11,762 notepad2.ini
+2009/10/09  10:17            34,779 Notepad2.txt
+2010/12/06  22:20    &lt;DIR&gt;          progs
+2005/10/24  20:33                81 qh.bat
+2011/08/03  20:02               520 readme.txt
+2010/10/27  18:07                57 tools.ini
+2010/12/06  16:55                88 WIN32.bat
+2010/12/06  16:04    &lt;DIR&gt;          windbg
+2009/06/24  10:54               455 windbg.lnk
+              28 个文件      1,271,597 字节
+               7 个目录 43,784,220,672 可用字节
+
+D:\MASM&gt;make32 eg0101
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0101.asm
+MASM : fatal error A1000: cannot open file : eg0101.asm
+
+D:\MASM&gt;cd progs
+
+D:\MASM\progs&gt;make32 eg0101
+系统找不到指定的路径。
+
+D:\MASM\progs&gt;cd ..
+
+D:\MASM&gt;make32 eg0201
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0201.asm
+MASM : fatal error A1000: cannot open file : eg0201.asm
+
+D:\MASM&gt;make32 eg0800
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0800.asm
+eg0800.asm(7) : error A2006: undefined symbol : DGROUP
+eg0800.asm(12) : warning A4023: with /coff switch, leading underscore required for start address : start
+</code></pre>
+<p>看了下后面的内容，破案了，源文件都要移动到MASM文件夹下执行，而不是放在progs文件夹下。</p>
+<pre><code>D:\MASM&gt;make32 eg0101
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0101.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2010/12/06  16:15               188 eg0101.asm
+2023/10/13  15:47            32,803 eg0101.exe
+2023/10/13  15:47            20,388 eg0101.ilk
+2023/10/13  15:47             4,457 eg0101.lst
+2023/10/13  15:47             1,727 eg0101.obj
+2023/10/13  15:47            74,752 eg0101.pdb
+               6 个文件        134,315 字节
+               0 个目录 43,782,606,848 可用字节
+
+D:\MASM&gt;eg0101.exe
+Hello, Assembly!
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131544030.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131545152.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131549184.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131550868.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131554816.png" alt="" /></p>
+<p>这里说“不要在Windows下双击运行”，因为运行了也看不见。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131556180.png" alt="" /></p>
+<p>列表文件中可能包括warning和error的具体信息，能方便我们研读源程序。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131558938.png" alt="" /></p>
+<p>上面这些内容很繁琐，不需要背住。因为都被打包进了make32文件，可以直接用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131600948.png" alt="" /></p>
+<p><strong>快捷开发主要包括两步，第一步是进入MASM目录：双击文件WIN32.BAT；第二步是生成可执行文件：make32 eg0101</strong></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="1-2程序格式.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
 
                         <div style="clear: both"></div>
@@ -187,6 +324,9 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="1-2程序格式.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
             </nav>
 

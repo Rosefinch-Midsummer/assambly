@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="第1周汇编语言基础.html"><strong aria-hidden="true">2.</strong> 第1周汇编语言基础</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1-1硬件组成.html"><strong aria-hidden="true">2.1.</strong> 1-1硬件组成</a></li><li class="chapter-item expanded "><a href="1-2程序格式.html"><strong aria-hidden="true">2.2.</strong> 1-2程序格式</a></li><li class="chapter-item expanded "><a href="1-3开发过程.html"><strong aria-hidden="true">2.3.</strong> 1-3开发过程</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -173,7 +173,255 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-<h1 id="chapter-1"><a class="header" href="#chapter-1">Chapter 1</a></h1>
+<h1 id="前言"><a class="header" href="#前言">前言</a></h1>
+<p><a href="https://www.icourse163.org/learn/ZZU-1001796025">汇编语言程序设计课程链接</a></p>
+<h2 id="课程概述"><a class="header" href="#课程概述">课程概述</a></h2>
+<p>“汇编语言程序设计”是继“高级语言程序设计”之后的又一门计算机语言程序设计课程，但讲解的是面向处理器的低级语言。该课程一方面加强学生的高级语言编程能力；另一方面配合“计算机组成原理”和“微机原理及接口技术”课程，从软件角度理解计算机工作原理；同时，还作为自动控制等与硬件相关应用领域的程序设计基础，以及为“嵌入式系统”、“操作系统”、“编译原理”等课程提供基础知识。</p>
+<p>本课程以Intel 80x86指令系统和微软MASM展开汇编语言程序设计方法。课程要求学生系统学习80x86整数指令系统、进一步理解计算机工作原理；要求学生掌握汇编语言源程序语句和格式，能够利用顺序、分支、循环和子程序等结构解决常规问题。本课程配有上机实践环节，要求学生具有阅读、编辑、汇编和调试汇编语言程序的能力。</p>
+<h2 id="授课目标"><a class="header" href="#授课目标">授课目标</a></h2>
+<p>“汇编语言”课程主要基于32位Windows控制台，以IA-32处理器常用指令和微软MASM展开汇编语言程序设计方法。 编程实践以普通32位PC机为唯一硬件条件，结合MASM开发软件包进行。 课程从开发环境的熟悉、MASM开发方法的练习、开发过程的熟练掌握，逐步掌握常用指令应用、顺序、分支、循环、子程序的编程。</p>
+<h2 id="相关资源"><a class="header" href="#相关资源">相关资源</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="第1周汇编语言基础"><a class="header" href="#第1周汇编语言基础">第1周汇编语言基础</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h2 id="1-1硬件组成"><a class="header" href="#1-1硬件组成">1-1硬件组成</a></h2>
+<ul>
+<li><a href="1-1%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.html#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8">通用寄存器</a></li>
+<li><a href="1-1%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.html#%E4%B8%93%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8">专用寄存器</a></li>
+<li><a href="1-1%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.html#%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%84%E7%BB%87">存储器组织</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/1-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="通用寄存器"><a class="header" href="#通用寄存器">通用寄存器</a></h2>
+<p>汇编语言把硬件抽象成：寄存器、存储器地址和输入输出地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110904746.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110907100.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110907489.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110909860.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110910795.png" alt="" /></p>
+<h2 id="专用寄存器"><a class="header" href="#专用寄存器">专用寄存器</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110914024.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110915768.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110916376.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110918908.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110920330.png" alt="" /></p>
+<p>三个附加段寄存器：ES、FS、GS都是存储数据的段寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110923757.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110924643.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110925501.png" alt="" /></p>
+<h2 id="存储器组织"><a class="header" href="#存储器组织">存储器组织</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110927945.png" alt="" /></p>
+<p>IA-32有4GB存储空间（0~FFFF FFFFH）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110934369.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110935666.png" alt="" /></p>
+<p>主要用平展存储模型，但是要分段。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110936364.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110938696.png" alt="" /></p>
+<p>IA-32处理器的ESP与SS配合指向堆栈段当前栈顶。</p>
+<p>逻辑地址和物理地址一一对应。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110941045.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110941853.png" alt="" /></p>
+<p>00400000H是虚拟地址，不是物理地址。</p>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="1-2程序格式"><a class="header" href="#1-2程序格式">1-2程序格式</a></h1>
+<ul>
+<li><a href="1-2%E7%A8%8B%E5%BA%8F%E6%A0%BC%E5%BC%8F.html#%E5%A4%84%E7%90%86%E5%99%A8%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F">处理器指令格式</a></li>
+<li><a href="1-2%E7%A8%8B%E5%BA%8F%E6%A0%BC%E5%BC%8F.html#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E8%AF%AD%E5%8F%A5%E6%A0%BC%E5%BC%8F">汇编语言语句格式</a></li>
+<li><a href="1-2%E7%A8%8B%E5%BA%8F%E6%A0%BC%E5%BC%8F.html#%E6%BA%90%E7%A8%8B%E5%BA%8F%E6%A1%86%E6%9E%B6">源程序框架</a></li>
+<li><a href="1-2%E7%A8%8B%E5%BA%8F%E6%A0%BC%E5%BC%8F.html#%E4%BF%A1%E6%81%AF%E6%98%BE%E7%A4%BA%E7%A8%8B%E5%BA%8F">信息显示程序</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/1-2.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="处理器指令格式"><a class="header" href="#处理器指令格式">处理器指令格式</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111509076.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111511779.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111512234.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111512377.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111515194.png" alt="" /></p>
+<p>在MASM的语句语法中，指令的目的操作数一般在左边，源操作数在右边。</p>
+<h2 id="汇编语言语句格式"><a class="header" href="#汇编语言语句格式">汇编语言语句格式</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111516358.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111525223.png" alt="" /></p>
+<p>标号和名字是用户定义的标识符</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111527757.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111529941.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111530241.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111530507.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111531274.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111531533.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111533781.png" alt="" /></p>
+<p>语句“msg byte 13,10,0”中，关键性的助记符是：byte</p>
+<p>MASM汇编语言的分隔操作数使用英文逗号，不能用中文逗号。</p>
+<p>MASM的语句分成执行性语句和说明性语句。</p>
+<h2 id="源程序框架"><a class="header" href="#源程序框架">源程序框架</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111535111.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111536095.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111537019.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111538944.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111540734.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111541870.png" alt="" /></p>
+<p>用SASM上的NASM-x86版本可以执行下面的汇编程序：</p>
+<pre><code class="language-assembly">section .data
+    msg db 'hello,world!',0
+section .text
+extern io_print_string, io_newline
+global main
+main:
+    ;write your code here
+    mov ebp, esp ;for correct debugging
+    mov eax,msg ;place pointer to hello world message to eax
+    call io_print_string ;print hello world
+    call io_newline ;print newline
+    xor eax,eax ;set eax to 0
+    ret ;return
+</code></pre>
+<p>“END”伪指令仅说明汇编到此结束，并不具备返回操作系统的功能。</p>
+<h2 id="信息显示程序"><a class="header" href="#信息显示程序">信息显示程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111615137.png" alt="" /></p>
+<p>定义要显示的字符串可以使用的伪指令是byte不是msg。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111639190.png" alt="" /></p>
+<p>本课程使用“exit 0”表达程序执行终止</p>
+<p>要显示字符串，可以使用本课程提供的DISPMSG子程序。</p>
+<p>C语言使用函数名（含参数）就是调用函数，IA-32处理器需要使用“CALL”调用指令实现调用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111640349.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111642687.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111642289.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310111643382.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="1-3开发过程"><a class="header" href="#1-3开发过程">1-3开发过程</a></h1>
+<ul>
+<li><a href="1-3%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B.html#masm%E5%BC%80%E5%8F%91%E8%BD%AF%E4%BB%B6">MASM开发软件</a></li>
+<li><a href="1-3%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B.html#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B9%B3%E5%8F%B0">操作系统平台</a></li>
+<li><a href="1-3%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B.html#%E6%BA%90%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B">源程序开发过程</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/1-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="masm开发软件"><a class="header" href="#masm开发软件">MASM开发软件</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131508760.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131510705.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131511649.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131512384.png" alt="" /></p>
+<p>汇编程序的作用是：将汇编语言程序转换为机器代码</p>
+<p>人们常会将汇编语言程序简称为汇编程序，但严格来说，两者是不同的。</p>
+<h2 id="操作系统平台"><a class="header" href="#操作系统平台">操作系统平台</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131518485.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131519304.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131520889.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131521488.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131522247.png" alt="" /></p>
+<p>相对操作简单的触屏、图形界面来说，字符输入的命令行虽然单调，确实最基本的交互方式；可以更深刻理解目录结构、文件路径等本质内容。</p>
+<h2 id="源程序开发过程"><a class="header" href="#源程序开发过程">源程序开发过程</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131532697.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131533521.png" alt="" /></p>
+<p>本机输出结果如下：</p>
+<pre><code>D:\MASM&gt;dir
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2023/10/13  15:30    &lt;DIR&gt;          .
+2023/10/13  15:30    &lt;DIR&gt;          ..
+2010/12/06  16:04    &lt;DIR&gt;          bin
+2010/10/27  18:18               211 CLRFILE.CV4
+2010/10/27  18:18               787 CURRENT.STS
+2010/12/06  16:05    &lt;DIR&gt;          CV
+2005/10/24  20:32                55 cv.bat
+2010/12/06  16:59                92 DOS16.bat
+2007/08/16  23:56               133 eg0000.asm
+2023/10/13  15:28            32,803 eg0000.exe
+2023/10/13  15:28            20,388 eg0000.ilk
+2023/10/13  15:28             4,234 eg0000.lst
+2023/10/13  15:28             1,611 eg0000.obj
+2023/10/13  15:28            74,752 eg0000.pdb
+2011/02/15  18:07               154 eg0800.asm
+2010/12/06  16:04    &lt;DIR&gt;          HELP
+2011/02/12  17:19             1,173 io16.inc
+2007/09/05  22:02             6,701 io16.lib
+2011/02/12  17:19             1,222 io32.inc
+2007/09/06  14:54            12,010 io32.lib
+2009/10/09  10:06             1,518 License.txt
+2011/08/03  19:53               239 make16.bat
+2009/07/05  12:11               257 make32.bat
+2011/02/12  17:13               289 make32a.bat
+2011/02/11  21:58               266 make32w.bat
+2009/10/09  11:53         1,064,960 Notepad2.exe
+2009/10/26  11:06            11,762 notepad2.ini
+2009/10/09  10:17            34,779 Notepad2.txt
+2010/12/06  22:20    &lt;DIR&gt;          progs
+2005/10/24  20:33                81 qh.bat
+2011/08/03  20:02               520 readme.txt
+2010/10/27  18:07                57 tools.ini
+2010/12/06  16:55                88 WIN32.bat
+2010/12/06  16:04    &lt;DIR&gt;          windbg
+2009/06/24  10:54               455 windbg.lnk
+              28 个文件      1,271,597 字节
+               7 个目录 43,784,220,672 可用字节
+
+D:\MASM&gt;make32 eg0101
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0101.asm
+MASM : fatal error A1000: cannot open file : eg0101.asm
+
+D:\MASM&gt;cd progs
+
+D:\MASM\progs&gt;make32 eg0101
+系统找不到指定的路径。
+
+D:\MASM\progs&gt;cd ..
+
+D:\MASM&gt;make32 eg0201
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0201.asm
+MASM : fatal error A1000: cannot open file : eg0201.asm
+
+D:\MASM&gt;make32 eg0800
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0800.asm
+eg0800.asm(7) : error A2006: undefined symbol : DGROUP
+eg0800.asm(12) : warning A4023: with /coff switch, leading underscore required for start address : start
+</code></pre>
+<p>看了下后面的内容，破案了，源文件都要移动到MASM文件夹下执行，而不是放在progs文件夹下。</p>
+<pre><code>D:\MASM&gt;make32 eg0101
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0101.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2010/12/06  16:15               188 eg0101.asm
+2023/10/13  15:47            32,803 eg0101.exe
+2023/10/13  15:47            20,388 eg0101.ilk
+2023/10/13  15:47             4,457 eg0101.lst
+2023/10/13  15:47             1,727 eg0101.obj
+2023/10/13  15:47            74,752 eg0101.pdb
+               6 个文件        134,315 字节
+               0 个目录 43,782,606,848 可用字节
+
+D:\MASM&gt;eg0101.exe
+Hello, Assembly!
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131544030.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131545152.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131549184.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131550868.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131554816.png" alt="" /></p>
+<p>这里说“不要在Windows下双击运行”，因为运行了也看不见。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131556180.png" alt="" /></p>
+<p>列表文件中可能包括warning和error的具体信息，能方便我们研读源程序。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131558938.png" alt="" /></p>
+<p>上面这些内容很繁琐，不需要背住。因为都被打包进了make32文件，可以直接用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131600948.png" alt="" /></p>
+<p><strong>快捷开发主要包括两步，第一步是进入MASM目录：双击文件WIN32.BAT；第二步是生成可执行文件：make32 eg0101</strong></p>
 
                     </main>
 

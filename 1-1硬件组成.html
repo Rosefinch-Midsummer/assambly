@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - Mdbook Template</title>
-        <base href="/">
+        <title>1-1硬件组成 - Mdbook Template</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="第1周汇编语言基础.html"><strong aria-hidden="true">2.</strong> 第1周汇编语言基础</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1-1硬件组成.html"><strong aria-hidden="true">2.1.</strong> 1-1硬件组成</a></li><li class="chapter-item expanded "><a href="1-2程序格式.html"><strong aria-hidden="true">2.2.</strong> 1-2程序格式</a></li><li class="chapter-item expanded "><a href="1-3开发过程.html"><strong aria-hidden="true">2.3.</strong> 1-3开发过程</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="第1周汇编语言基础.html"><strong aria-hidden="true">2.</strong> 第1周汇编语言基础</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1-1硬件组成.html" class="active"><strong aria-hidden="true">2.1.</strong> 1-1硬件组成</a></li><li class="chapter-item expanded "><a href="1-2程序格式.html"><strong aria-hidden="true">2.2.</strong> 1-2程序格式</a></li><li class="chapter-item expanded "><a href="1-3开发过程.html"><strong aria-hidden="true">2.3.</strong> 1-3开发过程</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,14 +171,56 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h2 id="1-1硬件组成"><a class="header" href="#1-1硬件组成">1-1硬件组成</a></h2>
+<ul>
+<li><a href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8">通用寄存器</a></li>
+<li><a href="#%E4%B8%93%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8">专用寄存器</a></li>
+<li><a href="#%E5%AD%98%E5%82%A8%E5%99%A8%E7%BB%84%E7%BB%87">存储器组织</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/1-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="通用寄存器"><a class="header" href="#通用寄存器">通用寄存器</a></h2>
+<p>汇编语言把硬件抽象成：寄存器、存储器地址和输入输出地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110904746.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110907100.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110907489.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110909860.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110910795.png" alt="" /></p>
+<h2 id="专用寄存器"><a class="header" href="#专用寄存器">专用寄存器</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110914024.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110915768.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110916376.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110918908.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110920330.png" alt="" /></p>
+<p>三个附加段寄存器：ES、FS、GS都是存储数据的段寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110923757.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110924643.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110925501.png" alt="" /></p>
+<h2 id="存储器组织"><a class="header" href="#存储器组织">存储器组织</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110927945.png" alt="" /></p>
+<p>IA-32有4GB存储空间（0~FFFF FFFFH）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110934369.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110935666.png" alt="" /></p>
+<p>主要用平展存储模型，但是要分段。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110936364.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110938696.png" alt="" /></p>
+<p>IA-32处理器的ESP与SS配合指向堆栈段当前栈顶。</p>
+<p>逻辑地址和物理地址一一对应。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110941045.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310110941853.png" alt="" /></p>
+<p>00400000H是虚拟地址，不是物理地址。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="第1周汇编语言基础.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="1-2程序格式.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -187,7 +228,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="第1周汇编语言基础.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="1-2程序格式.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
