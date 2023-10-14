@@ -444,6 +444,48 @@ Hello, Assembly!
 <p>计算机中有一个“01100001”编码。如果把它认为是无符号整数，它是十进制数97；如果认为它是BCD码，则表示真值61。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="2-1常量表达"><a class="header" href="#2-1常量表达">2-1常量表达</a></h1>
+<ul>
+<li><a href="2-1%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE.html#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE">汇编语言的常量表达</a></li>
+<li><a href="2-1%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE.html#%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%BE%BE%E7%A8%8B%E5%BA%8F">数据表达程序</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/2-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="汇编语言的常量表达"><a class="header" href="#汇编语言的常量表达">汇编语言的常量表达</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131629371.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131646966.png" alt="" /></p>
+<p>按照MASM语法，“AH”是一个8位寄存器，“0AH”表达十六进制数。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131647332.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131647580.png" alt="" /></p>
+<p>MASM中，使用“=”或者“equ”都可以定义符号常量。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131649034.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131649115.png" alt="" /></p>
+<h2 id="数据表达程序"><a class="header" href="#数据表达程序">数据表达程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310131800675.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141443637.png" alt="" /></p>
+<p>汇编语言中，表达真值“100”，可以使用二进制“01100100B”表达。</p>
+<p>下面指令可以定义数据-1的指令是：byte  0FFH</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141448489.png" alt="" /></p>
+<p><code>mov eax,offset const4</code>是把const4的偏移地址送到eax</p>
+<p><code>crlf	byte 0dh,0ah,0</code>就是光标回车换行然后碰到0</p>
+<pre><code class="language-asm">;eg0201.asm
+	include io32.inc
+	.data
+const1	byte 100,100d,01100100b,64h, 'd'
+const2	byte 1,+127,128,-128,255,-1
+const3	byte 105,-105,32,-32,32h,-32h
+const4	byte '0123456789', 'abcxyz', 'ABCXYZ'
+crlf	byte 0dh,0ah,0
+minint	= 10 
+maxint	equ 0ffh
+const5	byte minint,minint+5,maxint-5,maxint-minint
+const6	byte 4*4,34h+34,67h-52h,52h-67h
+	.code
+start:
+	mov eax,offset const4
+	call dispmsg
+
+	exit 0
+	end start
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="2-2变量定义"><a class="header" href="#2-2变量定义">2-2变量定义</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
