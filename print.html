@@ -532,6 +532,99 @@ start:
 <p>关于MASM语句“dvar dword ?”的意思是：dvar变量无初值，占有4个主存存储单元</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="2-3变量应用"><a class="header" href="#2-3变量应用">2-3变量应用</a></h1>
+<ul>
+<li><a href="2-3%E5%8F%98%E9%87%8F%E5%BA%94%E7%94%A8.html#%E5%A4%9A%E5%AD%97%E8%8A%82%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E9%A1%BA%E5%BA%8F">多字节数据的存储顺序</a></li>
+<li><a href="2-3%E5%8F%98%E9%87%8F%E5%BA%94%E7%94%A8.html#%E5%8F%98%E9%87%8F%E7%9A%84%E5%9C%B0%E5%9D%80%E5%B1%9E%E6%80%A7">变量的地址属性</a></li>
+<li><a href="2-3%E5%8F%98%E9%87%8F%E5%BA%94%E7%94%A8.html#%E5%8F%98%E9%87%8F%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%B1%9E%E6%80%A7">变量的类型属性</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/2-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="多字节数据的存储顺序"><a class="header" href="#多字节数据的存储顺序">多字节数据的存储顺序</a></h2>
+<p>主存储器采用字节编址，意味着每个存储单元具有一个地址、保存一个字节的数据。</p>
+<p>所谓小端方式是指数据的低字节部分保存于存储器的低地址单元、高字节数据部分保存于存储器的高地址单元。</p>
+<p>Intel 80x86系列处理器采用小端（Little Endian）方式存储多字节数据。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141634520.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141635949.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141636419.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141637707.png" alt="" /></p>
+<h2 id="变量的地址属性"><a class="header" href="#变量的地址属性">变量的地址属性</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141639923.png" alt="" /></p>
+<p>变量的地址属性是指变量所在存储单元的逻辑地址，包括段基地址和偏移地址。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141644381.png" alt="" /></p>
+<p>返回变量名所在段的偏移地址的操作符是：offset</p>
+<p>指令“org <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">+</span><span class="mord">10</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord">”</span><span class="mord cjk_fallback">的作用是：下一条机器码和当前地址之间有</span><span class="mord">10</span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord cjk_fallback">个内存空间。</span><span class="mclose">!</span><span class="mopen">[</span><span class="mclose">]</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mord mathnormal">ttp</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">//</span><span class="mord mathnormal">c</span><span class="mord mathnormal">d</span><span class="mord mathnormal">n</span><span class="mord">.</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mord mathnormal">s</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord">.</span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord mathnormal">t</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">h</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">ose</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">in</span><span class="mord mathnormal">c</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">s</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mm</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">ma</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">esHos</span><span class="mord mathnormal">t</span><span class="mord">01/</span><span class="mord mathnormal">im</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">/202310141647014.</span><span class="mord mathnormal">p</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mclose">)</span></span></span></span>是指向当前本该存放数据的单元的地址在这里是0000 0002H</p>
+<p><strong>bvar是一个字节变量，语句“<code>mov al ,bvar</code>”与“<code>mov al ,[bvar]</code>”功能相同。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141651647.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141701436.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141702316.png" alt="" /></p>
+<p><strong>指令“<code>MOV EAX, VAR+2</code>”与“<code>MOV EAX, VAR[2]</code>”功能相同。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141703851.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141707339.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141710793.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141711371.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141712902.png" alt="" /></p>
+<h2 id="变量的类型属性"><a class="header" href="#变量的类型属性">变量的类型属性</a></h2>
+<p>定义变量后，变量名就具有了类型属性。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141713936.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141713423.png" alt="" /></p>
+<p>将变量按照指定的类型使用的类型操作符是：PTR</p>
+<p>双字变量的类型值是：4</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141752888.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141753257.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141754803.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141754416.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141755257.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310141756781.png" alt="" /></p>
+<pre><code class="language-asm">;eg0207.asm
+	include io32.inc
+	.data
+bvar	byte 12h,34h
+	org $+10 
+array	word 1,2,3,4,5,6,7,8,9,10
+wvar	word 5678h
+arr_size	= $-array
+arr_len	= arr_size/2
+dvar	dword 9abcdef0h
+	.code
+start:
+	mov eax,dword ptr array
+	mov ebx,type bvar
+	mov ecx,type wvar
+	mov edx,type dvar
+	mov esi,lengthof array
+	mov edi,sizeof array
+	mov ebp,arr_size
+	call disprd
+	
+	exit 0
+	end start
+
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0207
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0207.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/03/01  20:27               392 eg0207.asm
+2023/10/14  17:58            32,803 eg0207.exe
+2023/10/14  17:58            20,388 eg0207.ilk
+2023/10/14  17:58             5,174 eg0207.lst
+2023/10/14  17:58             1,979 eg0207.obj
+2023/10/14  17:58            74,752 eg0207.pdb
+               6 个文件        135,488 字节
+               0 个目录 43,404,976,128 可用字节
+
+D:\MASM&gt;eg0207.exe
+EAX=00020001, EBX=00000001, ECX=00000002, EDX=00000004
+ESI=0000000A, EDI=00000014, EBP=00000016, ESP=0019FF74
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="第3周数据寻址"><a class="header" href="#第3周数据寻址">第3周数据寻址</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
