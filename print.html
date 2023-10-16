@@ -668,6 +668,176 @@ ESI=0000000A, EDI=00000014, EBP=00000016, ESP=0019FF74
 <p>语句“mov dx, ds”的源操作数也是寄存器寻址方式，ds是数据段寄存器，只不过不属于通用寄存器。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="3-3存储器寻址"><a class="header" href="#3-3存储器寻址">3-3存储器寻址</a></h1>
+<ul>
+<li><a href="3-3%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80.html#%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80">存储器寻址</a></li>
+<li><a href="3-3%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80.html#%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E7%9B%B4%E6%8E%A5%E5%AF%BB%E5%9D%80%E5%8F%AA%E6%9C%89%E4%BD%8D%E7%A7%BB%E9%87%8F">存储器的直接寻址（只有位移量）</a></li>
+<li><a href="3-3%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80.html#%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80%E5%8F%AA%E6%9C%89%E5%9F%BA%E5%9D%80%E5%AD%98%E5%82%A8%E5%99%A8">存储器的寄存器间接寻址（只有基址存储器）</a></li>
+<li><a href="3-3%E5%AD%98%E5%82%A8%E5%99%A8%E5%AF%BB%E5%9D%80.html#%E5%AD%98%E5%82%A8%E5%99%A8%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8%E7%9B%B8%E5%AF%B9%E5%AF%BB%E5%9D%80%E7%94%B1%E5%9F%BA%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%92%8C%E4%BD%8D%E7%A7%BB%E9%87%8F%E4%B8%A4%E9%83%A8%E5%88%86%E7%BB%84%E6%88%90">存储器的寄存器相对寻址（由基址寄存器和位移量两部分组成）</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/3-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="存储器寻址"><a class="header" href="#存储器寻址">存储器寻址</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151527518.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151528218.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151529779.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151533768.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151535833.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151537359.png" alt="" /></p>
+<p>注意：ESP不能充当变址寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151538222.png" alt="" /></p>
+<p>使用EBP或ESP作为基址寄存器，操作数默认是在：堆栈段</p>
+<p>存储器寻址的操作数当然在主存储器中了。</p>
+<p>IA-32处理器的存储器寻址中，8个32位的通用寄存器都可以作为基址寄存器使用。</p>
+<p>堆栈操作默认是由SS寄存器指示的段中。</p>
+<h2 id="存储器的直接寻址只有位移量"><a class="header" href="#存储器的直接寻址只有位移量">存储器的直接寻址（只有位移量）</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151541278.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151544038.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151557874.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151602273.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151604236.png" alt="" /></p>
+<p><strong>源操作数和目的操作数均可以采用存储器操作数，但不能同时使用</strong>。</p>
+<p>不能只使用一条指令完成这项功能，可以用寄存器中转。</p>
+<pre><code class="language-asm">; eg0210.asm in Windows Console
+	include io32.inc
+	.data
+bvar	byte 87h,49h
+dvar	dword 12345678h,12
+	.code
+start:
+	mov cl,bvar
+	mov edx,dvar
+	mov bvar+1,dh
+	mov word ptr dvar+2,dx
+	mov dvar,87654321h
+	mov dvar+4,dvar
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0210
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0210.asm
+eg0210.asm(13) : error A2070: invalid instruction operands
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151552393.png" alt="" /></p>
+<p>在MASM语法中，语句“<code>mov eax,dvar</code>”和“<code>mov eax,[dvar]</code>”是同一条指令，其中dvar是一个双字类型的变量（名）。</p>
+<p>直接寻址把存储器操作数的有效地址直接编码进指令的机器代码中。</p>
+<p>源操作数采用存储器的直接寻址的指令（var是一个变量）是：mov ebx, var+2</p>
+<p><code>mov edx,offset var</code>不是。</p>
+<h2 id="存储器的寄存器间接寻址只有基址存储器"><a class="header" href="#存储器的寄存器间接寻址只有基址存储器">存储器的寄存器间接寻址（只有基址存储器）</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151611935.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151613961.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151615704.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151617945.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151618929.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151619839.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151619482.png" alt="" /></p>
+<pre><code class="language-asm">; eg0211.asm in Windows Console
+	include io32.inc
+	.data
+srcmsg	byte 'Try your best, why not.'
+dstmsg	byte sizeof srcmsg dup(?)
+	.code
+start:
+	mov ecx,lengthof srcmsg	;ECX＝字符串字符个数
+	mov esi,offset srcmsg	;ESI＝源字符串首地址
+	mov edi,offset dstmsg	;EDI＝目的字符串首地址
+again:	mov al,[esi]	;取源串一个字符送AL
+	mov [edi],al	;将AL传送给目的串
+	add esi,1	;源串指针加1，指向下一个字符
+	add edi,1	;目的串指针加1，指向下一个字符
+	loop again	;字符个数ECX减1，不为0，则转到AGAIN标号处执行
+	mov eax,offset dstmsg	;显示目的字符串内容
+	call dispmsg
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0211
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0211.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/03/01  20:26               583 eg0211.asm
+2023/10/15  16:23            32,803 eg0211.exe
+2023/10/15  16:23            20,388 eg0211.ilk
+2023/10/15  16:23             5,250 eg0211.lst
+2023/10/15  16:23             1,999 eg0211.obj
+2023/10/15  16:23            74,752 eg0211.pdb
+               6 个文件        135,775 字节
+               0 个目录 44,181,356,544 可用字节
+
+D:\MASM&gt;eg0211.exe
+Try your best, why not.
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151623482.png" alt="" /></p>
+<p>指令“<code>mov [edi], al</code>”的功能是将AL寄存器的值传送到数据段中、EDI间接寻址的主存中</p>
+<p>存储器的寄存器间接寻址中，寄存器相当于一个地址指针的作用。</p>
+<p>指令“<code>mov ebx, [ebx]</code>”的源操作数采用寄存器间接寻址。</p>
+<h2 id="存储器的寄存器相对寻址由基址寄存器和位移量两部分组成"><a class="header" href="#存储器的寄存器相对寻址由基址寄存器和位移量两部分组成">存储器的寄存器相对寻址（由基址寄存器和位移量两部分组成）</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151626286.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151628442.png" alt="" /></p>
+<pre><code class="language-asm">; eg0212.asm in Windows Console
+	include io32.inc
+	.data
+srcmsg	byte 'Try your best, why not.'
+dstmsg	byte sizeof srcmsg dup(?)
+	.code
+start:
+	mov ecx,lengthof srcmsg	;ECX＝字符串字符个数
+	mov ebx,0	;EBX指向首个字符
+again:	mov al,srcmsg[ebx]	;取源串一个字符送AL
+	mov dstmsg[ebx],al	;将AL传送给目的串
+	add ebx,1	;加1，指向下一个字符
+	loop again	;字符个数ECX减1，不为0，则转到AGAIN标号处执行
+	mov eax,offset dstmsg	;显示目的字符串内容
+	call dispmsg
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;eg0211.exe
+Try your best, why not.
+D:\MASM&gt;make32 eg0212
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0212.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/03/01  20:25               481 eg0212.asm
+2023/10/15  16:31            32,803 eg0212.exe
+2023/10/15  16:31            20,388 eg0212.ilk
+2023/10/15  16:31             5,121 eg0212.lst
+2023/10/15  16:31             1,987 eg0212.obj
+2023/10/15  16:31            74,752 eg0212.pdb
+               6 个文件        135,532 字节
+               0 个目录 44,180,819,968 可用字节
+
+D:\MASM&gt;eg0212.exe
+Try your best, why not.
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151636556.png" alt="" /></p>
+<p>指令“<code>mov eax, count[esi]</code>”中源操作数的寻址方式是：寄存器相对寻址</p>
+<p><strong>寄存器相对寻址有一个位移量和一个寄存器内容相加形成存储器操作数的有效地址。</strong></p>
+<p>在MASM支持的语法中，与<code>[ebx+8]</code>含义不相同的表达方式是（其中eight是一个常量，是数值8）：D</p>
+<p>A.<code>8[ebx]</code></p>
+<p>B.<code>eight[ebx]</code></p>
+<p>C.<code>[8][ebx]</code></p>
+<p>D.<code>[ebx*8]</code></p>
+<p>语句“<code>mov [edi], [esi+4]</code>”是非法指令。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="第4周通用数据处理指令"><a class="header" href="#第4周通用数据处理指令">第4周通用数据处理指令</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
