@@ -629,6 +629,33 @@ ESI=0000000A, EDI=00000014, EBP=00000016, ESP=0019FF74
 <h1 id="第3周数据寻址"><a class="header" href="#第3周数据寻址">第3周数据寻址</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="3-1立即数寻址"><a class="header" href="#3-1立即数寻址">3-1立即数寻址</a></h1>
+<ul>
+<li><a href="3-1%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80.html#%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F">寻址方式</a></li>
+<li><a href="3-1%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80.html#%E7%AB%8B%E5%8D%B3%E6%95%B0%E5%AF%BB%E5%9D%80">立即数寻址</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/3-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="寻址方式"><a class="header" href="#寻址方式">寻址方式</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151420053.png" alt="" /></p>
+<p>寻址方式的含义是指通过地址访问指令或数据的方法。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151421972.png" alt="" /></p>
+<p>数据寻址的含义是指通过地址访问指令操作数（数据）。</p>
+<p>指令寻址是指确定要执行的下一条指令的地址。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151423879.png" alt="" /></p>
+<p>变量指向存储单元，所以访问变量就是存储器寻址。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151424304.png" alt="" /></p>
+<h2 id="立即数寻址"><a class="header" href="#立即数寻址">立即数寻址</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151426379.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151437244.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151437208.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151433086.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151438448.png" alt="" /></p>
+<p><strong>假设VAR为变量，指令“MOV EBX, OFFSET VAR”的源操作数寻址方式是立即寻址。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151439346.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310151439240.png" alt="" /></p>
+<p>立即数是指从指令的机器代码中直接取得的操作数。</p>
+<p>语句“mov al,12h”中采用立即数寻址的部分是：12h</p>
+<p>语句“mov eax,offset dvar”中（dvar是一个变量）采用立即数寻址的部分是：offset dvar</p>
+<p>语句“mov edx,type dvar”中（dvar是一个双字变量）<strong>源操作数</strong>采用立即数寻址。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="3-2寄存器寻址"><a class="header" href="#3-2寄存器寻址">3-2寄存器寻址</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
