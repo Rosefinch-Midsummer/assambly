@@ -888,6 +888,99 @@ Try your best, why not.
 <p><strong>涉及存储器时必须要指定存储单元大小</strong></p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="4-2算术运算类指令"><a class="header" href="#4-2算术运算类指令">4-2算术运算类指令</a></h1>
+<ul>
+<li><a href="4-2%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4.html#%E8%BF%9B%E4%BD%8D%E5%92%8C%E6%BA%A2%E5%87%BA%E6%A0%87%E5%BF%97">进位和溢出标志</a></li>
+<li><a href="4-2%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4.html#%E9%9B%B6%E6%A0%87%E5%BF%97%E7%AC%A6%E5%8F%B7%E6%A0%87%E5%BF%97%E5%92%8C%E5%A5%87%E5%81%B6%E6%A0%87%E5%BF%97">零标志、符号标志和奇偶标志</a></li>
+<li><a href="4-2%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4.html#add%E6%8C%87%E4%BB%A4">ADD指令</a></li>
+<li><a href="4-2%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4.html#sub%E6%8C%87%E4%BB%A4">SUB指令</a></li>
+<li><a href="4-2%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%B1%BB%E6%8C%87%E4%BB%A4.html#incdecneg%E6%8C%87%E4%BB%A4">INC、DEC、NEG指令</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/4-2.pdf" target="_blank">在线阅读PDF文档</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171505128.png" alt="" /></p>
+<h2 id="进位和溢出标志"><a class="header" href="#进位和溢出标志">进位和溢出标志</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171507206.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171509251.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171511861.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171511087.png" alt="" /></p>
+<p>程序不关心数有无符号，但程序员需要注意数有无符号。</p>
+<p>进行有符号整数的加减运算，判断是否超出运算范围可由溢出标志OF判断。</p>
+<p>IA-32处理器的减法操作的借位状态使用进位标志CF反映。</p>
+<h2 id="零标志符号标志和奇偶标志"><a class="header" href="#零标志符号标志和奇偶标志">零标志、符号标志和奇偶标志</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171513871.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171514480.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171518924.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171521115.png" alt="" /></p>
+<p>两个整数相减等于0，则标志正确的是：ZF=1，PF=1，SF=0</p>
+<p>IA-32处理器对符号标志SF的定义是：运算结果最高位为1，则SF＝1；否则SF＝0。</p>
+<p>IA-32处理器设计零标志ZF反映运算结果是否为0，结果为0，则ZF标志为1。</p>
+<p>IA-32处理器的奇偶标志PF关注的是最低8位结果中“1”的个数是偶数还是奇数。</p>
+<h2 id="add指令"><a class="header" href="#add指令">ADD指令</a></h2>
+<p>加法指令ADD的运算结果影响状态标志的取值。</p>
+<p>若eax=12345678H，则“add al,27h”执行后的结果为：eax=1234569FH（十六进制加法）</p>
+<p>若AL=100，则“add al,200”执行后的结果为：AL=44（溢出了！！）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171526637.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171531649.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171536970.png" alt="" /></p>
+<pre><code class="language-asm">; eg0305.asm in Windows Console
+	include io32.inc
+	.data
+msg	byte 'welcome',0
+	.code
+start:
+	mov ecx,(lengthof msg)-1	;ECX等于字符串长度
+	mov ebx,0	;EBX＝0指向头一个字母
+again:	sub msg[ebx],'a'-'A'	;小写字母减20H转换为大写
+	inc ebx	;指向下一个字母
+	loop again	;循环
+	mov eax,offset msg
+	call dispmsg	;显示
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0305
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0305.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  21:27               340 eg0305.asm
+2023/10/17  15:35            32,803 eg0305.exe
+2023/10/17  15:35            20,388 eg0305.ilk
+2023/10/17  15:35             4,800 eg0305.lst
+2023/10/17  15:35             1,867 eg0305.obj
+2023/10/17  15:35            74,752 eg0305.pdb
+               6 个文件        134,950 字节
+               0 个目录 44,179,554,304 可用字节
+
+D:\MASM&gt;eg0305.exe
+WELCOME
+</code></pre>
+<h2 id="sub指令"><a class="header" href="#sub指令">SUB指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171537074.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171539590.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171542817.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171545327.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171547440.png" alt="" /></p>
+<p>IA-32处理器的SUB减法指令只进行整数的减法操作。</p>
+<h2 id="incdecneg指令"><a class="header" href="#incdecneg指令">INC、DEC、NEG指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171606340.png" alt="" /></p>
+<p>注意：不能是立即数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171608646.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171609239.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171611183.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171617262.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171618107.png" alt="" /></p>
+<p>加1指令INC和减1指令DEC的运算结果影响除进位CF标志之外的其他状态标志。</p>
+<p>“NEG EAX”指令的功能是用0减去EAX内容，差值结果保存在EAX。</p>
+<p>对EAX中的整数进行求补运算的指令是：neg eax</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="4-3位操作类指令"><a class="header" href="#4-3位操作类指令">4-3位操作类指令</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
