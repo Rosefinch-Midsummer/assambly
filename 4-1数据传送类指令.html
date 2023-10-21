@@ -173,6 +173,50 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="4-1数据传送类指令"><a class="header" href="#4-1数据传送类指令">4-1数据传送类指令</a></h1>
+<ul>
+<li><a href="#mov">MOV</a></li>
+<li><a href="#lea">LEA</a></li>
+<li><a href="#push-pop">PUSH POP</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/4-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171402664.png" alt="" /></p>
+<h2 id="mov"><a class="header" href="#mov">MOV</a></h2>
+<p>复制一份传送</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171406974.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171409609.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171411931.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171413965.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171414806.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171415358.png" alt="" /></p>
+<h2 id="lea"><a class="header" href="#lea">LEA</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171416996.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171420896.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171423616.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171427504.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171428403.png" alt="" /></p>
+<p>已知var是一个变量，与指令“lea ebx,var”相同功能的语句是：mov ebx,offset var</p>
+<p>指令“<code>lea eax,[ebx]</code>”是一条语法正确的指令。</p>
+<p>指令“<code>lea eax,[ebx+10]</code>”是一条语法正确的指令。</p>
+<p>指令“<code>mov eax, offset [ebx+10]</code>”是一条语法错误的指令。</p>
+<h2 id="push-pop"><a class="header" href="#push-pop">PUSH POP</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171430830.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171431465.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171433915.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171438696.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171439404.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171440541.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171445119.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171450566.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171452473.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171452652.png" alt="" /></p>
+<p>IA-32处理器指令“PUSH EAX”执行后，寄存器EAX内容被传送到当前栈顶。</p>
+<p>执行指令“push eax”后、接着执行指令“pop edx”，其功能与下面mov edx, eax指令相同。</p>
+<p>如下错误的指令是：B</p>
+<p>A.<code>push ebx</code></p>
+<p>B.<code>push [ebx]</code></p>
+<p>C.<code>pop ecx</code></p>
+<p>D.<code>pop dword ptr [ecx]</code></p>
+<p><strong>涉及存储器时必须要指定存储单元大小</strong></p>
 
                     </main>
 
