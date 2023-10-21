@@ -173,6 +173,121 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="4-3位操作类指令"><a class="header" href="#4-3位操作类指令">4-3位操作类指令</a></h1>
+<ul>
+<li><a href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">逻辑运算指令</a></li>
+<li><a href="#%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4">移位指令</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E7%A7%BB%E4%BD%8D%E6%8C%87%E4%BB%A4">循环移位指令</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/4-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="逻辑运算指令"><a class="header" href="#逻辑运算指令">逻辑运算指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171621632.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171622035.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171622419.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171623203.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171624969.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171624981.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171627038.png" alt="" /></p>
+<pre><code class="language-asm">; eg0307.asm in Windows Console
+	include io32.inc
+	.data
+varA	dword 11001010000111100101010101001101b
+varB	dword 00110111010110100011010111100001b
+varT1	dword ?
+varT2	dword ?
+
+	.code
+start:
+	mov eax,varA	;EAX＝11001010000111100101010101001101B
+	not eax	;EAX＝00110101111000011010101010110010B
+	and eax,varB	;EAX＝00110101010000000010000010100000B
+	mov ebx,varB	;EBX＝00110111010110100011010111100001B
+	not ebx	;EBX＝11001000101001011100101000011110B
+	and ebx,varA	;EBX＝11001000000001000100000000001100B
+	or eax,ebx	;EAX＝11111101010001000110000010101100B
+	mov varT1,eax
+	;
+	mov eax,varA
+	xor eax,varB	;EAX＝11111101010001000110000010101100B
+	mov varT2,eax
+	;
+	mov eax,varT1	;二进制形式显示VART1
+	call dispbd
+	call dispcrlf	;换行显示
+	mov eax,varT2	;二进制形式显示VART2
+	call dispbd
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0307
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0307.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  21:35               832 eg0307.asm
+2023/10/17  16:26            32,803 eg0307.exe
+2023/10/17  16:26            20,388 eg0307.ilk
+2023/10/17  16:26             5,620 eg0307.lst
+2023/10/17  16:26             2,149 eg0307.obj
+2023/10/17  16:26            74,752 eg0307.pdb
+               6 个文件        136,544 字节
+               0 个目录 44,180,180,992 可用字节
+
+D:\MASM&gt;eg0307.exe
+11111101010001000110000010101100
+11111101010001000110000010101100
+D:\MASM&gt;
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171630588.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171631186.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171633950.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171634608.png" alt="" /></p>
+<p>能将EDX中的0变成1、1变成0的指令是：NOT EDX</p>
+<p>使得ECX=0，同时设置CF=OF=0的指令是：xor ecx,ecx</p>
+<p>“OR EAX, 1”指令可以将EAX最低位为置1。</p>
+<p>“XOR EAX, 1”指令可以将EAX最低位求反。</p>
+<h2 id="移位指令"><a class="header" href="#移位指令">移位指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171636666.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171638214.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171640374.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171642035.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171644150.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171644636.png" alt="" /></p>
+<p>指令“shl eax, 4”是将EAX内容左移4位。</p>
+<p>逻辑左移和算术左移的功能相同。</p>
+<p>指令“sar eax, 1”执行后，EAX的最高位一定是：与次高位相同</p>
+<p><strong>指令“shr eax, 1”执行后，EAX的最高位一定是：0</strong></p>
+<h2 id="循环移位指令"><a class="header" href="#循环移位指令">循环移位指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171647587.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171648845.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171648739.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171649595.png" alt="" /></p>
+<p><strong>指令“ror eax, 1”执行后，EAX的最高位一定是：与进位CF标志相同。上面的最低位和最高位不是同一时刻的最低位和最高位。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171651765.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171652124.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310171652303.png" alt="" /></p>
+<p>IA-32处理器指令ROL是指不带进位的循环左移指令。</p>
+<p>MASM使用RCL助记符代表的指令是：带进位循环左移指令</p>
+<p>程序模板：</p>
+<pre><code class="language-asm">; eg0000.asm in Windows Console
+	include io32.inc
+	.data
+		; 数据定义
+	.code
+start:
+		; 主程序
+	exit 0
+		; 子程序
+	end start
+</code></pre>
 
                     </main>
 
