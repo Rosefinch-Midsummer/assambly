@@ -1102,6 +1102,191 @@ start:
 <h1 id="第5周顺序程序结构"><a class="header" href="#第5周顺序程序结构">第5周顺序程序结构</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="5-1移位实现乘法"><a class="header" href="#5-1移位实现乘法">5-1移位实现乘法</a></h1>
+<ul>
+<li><a href="5-1%E7%A7%BB%E4%BD%8D%E5%AE%9E%E7%8E%B0%E4%B9%98%E6%B3%95.html#%E7%A7%BB%E4%BD%8D%E5%AE%9E%E7%8E%B0%E4%B9%98%E6%B3%95">移位实现乘法</a></li>
+<li><a href="5-1%E7%A7%BB%E4%BD%8D%E5%AE%9E%E7%8E%B0%E4%B9%98%E6%B3%95.html#64%E4%BD%8D%E6%95%B0%E6%8D%AE%E7%A7%BB%E4%BD%8D%E7%A8%8B%E5%BA%8F">64位数据移位程序</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/5-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="移位实现乘法"><a class="header" href="#移位实现乘法">移位实现乘法</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310181556921.png" alt="" /></p>
+<p>理论上，任意两个整数相乘都可以移位、配合加减运算实现。</p>
+<p>对二进制表达的整数来说，右移一位相当于数值除以2。</p>
+<p>对二进制表达的整数来说，左移一位相当于数值乘以2。</p>
+<p>指令“shl eax, 1”执行后，EAX的最低位一定是：0</p>
+<p>如果EAX保存一个无符号整数，移位指令“shl eax,3”可以实现：EAX数值乘以8</p>
+<p>复现课程中代码如下：</p>
+<pre><code class="language-asm">; eg0000.asm in Windows Console
+	include io32.inc
+	.data
+    wvar word 34000
+	.code
+start:
+    xor eax,eax
+    mov ax,wvar
+    shl eax,1
+    mov ebx,eax
+    shl eax,2
+    add eax,ebx
+    call dispuib
+    call dispcrlf
+    mul ax, 10
+    call dispuib
+                
+    exit 0
+    end start
+</code></pre>
+<p>就上面的汇编程序而言，我的代码第15行报错<code>eg0000.asm(15) : error A2008: syntax error : ,</code></p>
+<p>具体报错信息如下所示：</p>
+<pre><code>D:\MASM&gt;make32 eg0000
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+Assembling: eg0000.asm
+eg0000.asm(15) : error A2008: syntax error : ,
+</code></pre>
+<p>原因：mul只能用mul src这种省略一个操作数的方式运算，而imul可以用<code>imul src</code>、<code>imul dest,src</code>、<code>imul imm,</code></p>
+<p>修改<code>mul ax,10</code>为<code>mov ebx,10</code>和<code>mul eax</code></p>
+<pre><code class="language-asm">; eg0000.asm in Windows Console
+	include io32.inc
+	.data
+    wvar word 3
+	.code
+start:
+    xor eax,eax
+    mov ax,wvar
+    shl eax,1
+    mov ebx,eax
+    shl eax,2
+    add eax,ebx
+    call dispuib
+    call dispcrlf
+    mov ax, 10   ; 修改此处，将mul指令改为mov指令
+    mul ebx     ; 修改此处，将ax作为乘数
+    call dispuib
+                
+    exit 0
+    end start
+</code></pre>
+<p>用34000会直接溢出，结果为取余后的数值。故把初始数据改为3。</p>
+<pre><code>D:\MASM&gt;make32 eg0000
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0000.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2023/10/18  18:15               378 eg0000.asm
+2023/10/18  18:15            32,803 eg0000.exe
+2023/10/18  18:15            20,388 eg0000.ilk
+2023/10/18  18:15             4,860 eg0000.lst
+2023/10/18  18:15             1,887 eg0000.obj
+2023/10/18  18:15            74,752 eg0000.pdb
+               6 个文件        135,068 字节
+               0 个目录 43,810,578,432 可用字节
+
+D:\MASM&gt;eg0000.exe
+00000011
+00000110
+30
+44
+D:\MASM&gt;
+</code></pre>
+<p>乘以10时结果正确，乘以100时结果溢出。</p>
+<p>课程PPT中代码有很多错误比如十进制显示用<code>call dispuib</code>不是用<code>call dispuid</code>，这里附带介绍下正确显示代码的写法。</p>
+<pre><code class="language-asm">; eg0403.asm in Windows Console
+	include io32.inc
+	.data
+var	byte 01100100b
+	.code
+start:
+	mov al,var
+	call dispbb	;二进制形式显示：01100100
+	call dispcrlf	;回车换行（用于分隔）
+	mov al,var
+	call disphb	;十六进制形式显示：64
+	call dispcrlf	;回车换行（用于分隔）
+	mov al,var
+	call dispuib	;十进制形式显示：100
+	call dispcrlf	;回车换行（用于分隔）
+	mov al,var
+	call dispc	;字符显示：d
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;eg0403.exe
+01100100
+64
+100
+d
+D:\MASM&gt;
+</code></pre>
+<p>找了下老师给出的汇编代码，展示如下：</p>
+<pre><code class="language-asm">; eg0308.asm in Windows Console
+	include io32.inc
+	.data
+wvar	word 34000
+
+	.code
+start:
+	xor eax,eax	;EAX＝0
+	mov ax,wvar	;AX＝要乘以10的无符号数
+	shl eax,1	;左移一位等于乘2
+	mov ebx,eax	;EBX＝EAX×2
+	shl eax,2	;再左移2位，EAX＝EAX×8
+	add eax,ebx	;EAX＝EAX×10
+	call dispuid	;显示乘积
+	call dispcrlf	;换行
+	imul eax,10	;EAX＝EAX×10
+	call dispuid	;显示乘积
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0308
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0308.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  21:36               396 eg0308.asm
+2023/10/20  15:39            32,803 eg0308.exe
+2023/10/20  15:39            20,388 eg0308.ilk
+2023/10/20  15:39             4,774 eg0308.lst
+2023/10/20  15:39             1,803 eg0308.obj
+2023/10/20  15:39            74,752 eg0308.pdb
+               6 个文件        134,916 字节
+               0 个目录 43,804,905,472 可用字节
+
+D:\MASM&gt;eg0308.exe
+340000
+3400000
+D:\MASM&gt;
+</code></pre>
+<p><strong>经过测试，这里没写错，执行<code>call dispuid</code>才会出现正确结果。此外下面确实是imul指令。</strong></p>
+<p>结果正常显示，没有溢出。我果真还是太菜了！！！</p>
+<h2 id="64位数据移位程序"><a class="header" href="#64位数据移位程序">64位数据移位程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310181638656.png" alt="" /></p>
+<p><strong>根据前面的移位指令，我们发现移出来的位都进入了CF。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310181647088.png" alt="" /></p>
+<p>已知qvar是用qword定义的64位类型的变量，IA-32处理器的指令“shr qvar,1”存在语法错误。</p>
+<p>使用2条32位（循环）移位指令实现64位数据逻辑右移的执行顺序依次是：shr、rcr</p>
+<p>使用2条32位（循环）移位指令实现64位数据逻辑左移的执行顺序依次是：shl、rcl</p>
+<p>使用2条32位（循环）移位指令实现64位数据算术右移的执行顺序依次是：sar、rcr</p>
+<p>IA-32处理器（循环）移位指令不支持的数据位数是：64</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310201527239.png" alt="" /></p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="5-2自然数求和"><a class="header" href="#5-2自然数求和">5-2自然数求和</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
