@@ -173,6 +173,148 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="5-2自然数求和"><a class="header" href="#5-2自然数求和">5-2自然数求和</a></h1>
+<ul>
+<li><a href="#%E8%87%AA%E7%84%B6%E6%95%B0%E6%B1%82%E5%92%8C%E7%A8%8B%E5%BA%8F">自然数求和程序</a></li>
+<li><a href="#%E5%A4%84%E7%90%86%E5%99%A8%E8%AF%86%E5%88%AB%E7%A8%8B%E5%BA%8F">处理器识别程序</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/5-2.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="自然数求和程序"><a class="header" href="#自然数求和程序">自然数求和程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310201825541.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310201825684.png" alt="" /></p>
+<p>用语句“sum qword ?”定义的一个4字（64位）变量sum，存取其高32位数据部分的正确指令是：
+<code>mov edx,dword ptr sum+4</code></p>
+<p>IA-32处理器的乘法指令“mul ebx”产生的乘积保存在的寄存器是：EDX和EAX</p>
+<p>对由EDX（高32位）和EAX（低32位）保存的64位无符号整数进行逻辑右移一位操作，可以使用两条32位（循环）移位指令实现，它们是：shr edx和rcr eax</p>
+<p>用语句“sum qword ?”定义的一个4字（64位）变量sum，与32位EAX类型不一致，所以“mov sum, eax”存在语法错误。（这是正确的）</p>
+<p>IA-32处理器的乘法指令“mul ebx”产生的乘积是64位的。</p>
+<pre><code class="language-asm">; eg0401.asm in Windows Console
+	include io32.inc
+	.data
+num	dword 3456	;假设一个N值（小于2^32-1）
+sum	qword ?
+
+	.code
+start:
+	mov eax,num	;EAX=N
+	add eax,1	;EAX=N+1
+	imul num	;EDX.EAX=(1+N)×N
+	shr edx,1	;64位逻辑右移一位，相当于除以2
+	rcr eax,1	;EDX.EAX= EDX.EAX÷2
+	mov dword ptr sum,eax
+	mov dword ptr sum+4,edx	;按小端方式保存
+
+	exit 0
+	end start
+</code></pre>
+<p>修改后能显示结果的程序如下：</p>
+<pre><code class="language-asm">; eg0401.asm in Windows Console
+	include io32.inc
+	.data
+num	dword 34	;假设一个N值（小于2^32-1）
+sum	dword ?
+
+	.code
+start:
+	mov eax,num	;EAX=N
+	add eax,1	;EAX=N+1
+	imul num	;EDX.EAX=(1+N)×N
+	shr edx,1	;64位逻辑右移一位，相当于除以2
+	rcr eax,1	;EDX.EAX= EDX.EAX÷2
+	mov dword ptr sum,eax
+	mov dword ptr sum+2,edx	;按小端方式保存
+	xor eax,eax
+	mov eax,num
+	call dispuid
+	call dispcrlf
+	mov eax,sum
+	call dispuid
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0401
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0401.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2023/10/22  18:23               454 eg0401.asm
+2023/10/22  18:23            32,803 eg0401.exe
+2023/10/22  18:23            20,388 eg0401.ilk
+2023/10/22  18:23             4,995 eg0401.lst
+2023/10/22  18:23             1,951 eg0401.obj
+2023/10/22  18:23            74,752 eg0401.pdb
+               6 个文件        135,343 字节
+               0 个目录 43,801,960,448 可用字节
+
+D:\MASM&gt;eg0401.exe
+34
+595
+</code></pre>
+<h2 id="处理器识别程序"><a class="header" href="#处理器识别程序">处理器识别程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221758868.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221759497.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221759783.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221800820.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221801580.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221801110.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221802433.png" alt="" /></p>
+<p>程序的顺序结构是不含分支、循环和调用的一条语句（指令）、一条语句（指令）逐个顺序执行的程序结构。</p>
+<p>IA-32处理器上，在EAX=0时执行CPUID指令时通过寄存器ECX、EDX和EBX返回处理器厂商字符串。</p>
+<p>MASM中，助记符“CPUID”是IA-32处理器的一条处理器识别指令，该指令能够反馈处理器的有关信息。</p>
+<p>语句“buffer byte 12 dup(0)”为变量buffer预留了：12个初值为0的存储单元</p>
+<p><strong>buffer指向一个字符串缓冲区，bufsize是一个符号常量，指令“mov dword ptr buffer+bufsize-13, ebx”的目的操作数的寻址方式是：直接寻址</strong></p>
+<pre><code class="language-asm">; eg0402.asm in Windows Console
+	include io32.inc
+	.data
+buffer	byte 'The processor vendor ID is ',12 dup(0),0
+bufsize	= sizeof buffer
+
+	.code
+start:
+	mov eax,0
+	cpuid	;执行处理器识别指令
+	mov dword ptr buffer+bufsize-13,ebx
+	mov dword ptr buffer+bufsize-9,edx
+	mov dword ptr buffer+bufsize-5,ecx
+	mov eax,offset buffer	;显示信息
+	call dispmsg
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0402
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0402.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  21:42               380 eg0402.asm
+2023/10/22  18:03            32,803 eg0402.exe
+2023/10/22  18:03            20,388 eg0402.ilk
+2023/10/22  18:03             4,913 eg0402.lst
+2023/10/22  18:03             1,835 eg0402.obj
+2023/10/22  18:03            74,752 eg0402.pdb
+               6 个文件        135,071 字节
+               0 个目录 43,801,960,448 可用字节
+
+D:\MASM&gt;eg0402.exe
+The processor vendor ID is AuthenticAMD
+</code></pre>
 
                     </main>
 
