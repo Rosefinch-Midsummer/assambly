@@ -173,6 +173,163 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="6-3双分支结构"><a class="header" href="#6-3双分支结构">6-3双分支结构</a></h1>
+<ul>
+<li><a href="#%E5%8F%8C%E5%88%86%E6%94%AF%E7%BB%93%E6%9E%84">双分支结构</a></li>
+<li><a href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97%E6%BA%A2%E5%87%BA%E7%A8%8B%E5%BA%8F">有符号整数运算溢出程序</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/6-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="双分支结构"><a class="header" href="#双分支结构">双分支结构</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211639084.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211640940.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211646992.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211648743.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211649690.png" alt="" /></p>
+<p>这里的“双分支结构”是指条件满足和不满足各自执行一个分支体，但最后都从共用的出口开始执行后续指令。</p>
+<p>在双分支程序结构中，顺序执行的分支体最后需要JMP指令，目的是使第一个分支体执行结束之后，跳过第二个分支体，避免误入第二个分支体中。</p>
+<p>指令“mov al, 1”执行后，AL等于：1</p>
+<p>指令“mov al,'0'”执行后，AL等于：30H</p>
+<p>注意：这里是字符0不是数字0</p>
+<pre><code class="language-asm">; eg0411.asm in Windows Console
+	include io32.inc
+	.data
+dvar	dword 0bd630422h	;假设一个数据
+	.code
+start:
+	mov ebx,dvar
+	shl ebx,1	;EBX最高位移入CF标志
+	jc one	;CF＝1，即最高位为1，转移
+	mov al,'0'	;CF＝0，即最高位为0：AL='0'
+	jmp two	;一定要跳过另一个分支体
+one:	mov al,'1'	;AL='1'
+two:	call dispc	;显示
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0411
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0411.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  21:59               340 eg0411.asm
+2023/10/22  14:51            32,803 eg0411.exe
+2023/10/22  14:51            20,388 eg0411.ilk
+2023/10/22  14:51             4,873 eg0411.lst
+2023/10/22  14:51             1,929 eg0411.obj
+2023/10/22  14:51            74,752 eg0411.pdb
+               6 个文件        135,085 字节
+               0 个目录 43,803,463,680 可用字节
+
+D:\MASM&gt;eg0411.exe
+1
+</code></pre>
+<pre><code class="language-asm">; eg0411a.asm in Windows Console
+	include io32.inc
+	.data
+dvar	dword 00d630422h	;假设一个数据
+	.code
+start:
+	mov ebx,dvar
+	mov al,'0'	;假设最高位为0：AL='0'
+	shl ebx,1	;EBX最高位移入CF标志
+	jnc two	;CF＝0，即最高位为0、与假设相同，转移
+	mov al,'1'	;CF＝1，即最高位为1，AL='1'
+two:	call dispc	;显示
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0411a
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0411a.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  21:59               331 eg0411a.asm
+2023/10/22  14:52            32,804 eg0411a.exe
+2023/10/22  14:52            20,392 eg0411a.ilk
+2023/10/22  14:52             4,732 eg0411a.lst
+2023/10/22  14:52             1,834 eg0411a.obj
+2023/10/22  14:52            74,752 eg0411a.pdb
+               6 个文件        134,845 字节
+               0 个目录 43,803,316,224 可用字节
+
+D:\MASM&gt;eg0411a.exe
+0
+</code></pre>
+<p>注：汇编语言中，数字开头的0是表示这个是数字，不是数字的一部分，例如<code>0AH</code>。</p>
+<h2 id="有符号整数运算溢出程序"><a class="header" href="#有符号整数运算溢出程序">有符号整数运算溢出程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211653679.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211704270.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310211705445.png" alt="" /></p>
+<p>指令“mov dvar3,eax”进行是32位的数据传输。</p>
+<p>指令“mov dvar3,eax”目的操作数和源操作数的数据寻址方式分别是：直接寻址、寄存器寻址</p>
+<p>通用处理器中普遍采用补码表达有符号整数。</p>
+<p>用8位进制补码表达一个有符号整数，数值“-150”无法表达。</p>
+<p>两个有符号整数加减运算后，结果是否溢出应使用JO或JNO指令判断。</p>
+<pre><code class="language-asm">; eg0412.asm in Windows Console
+	include io32.inc
+	.data
+dvar1	dword 1234567890	;假设两个数据
+dvar2	dword -999999999
+dvar3	dword ?
+okmsg	byte 'Correct!',0	;正确信息
+errmsg	byte 'ERROR ! Overflow!',0	;错误信息
+
+	.code
+start:
+	mov eax,dvar1 
+	sub eax,dvar2	;求差
+	jo error	;有溢出，转移
+	mov dvar3,eax	;无溢出，保存差值
+	mov eax,offset okmsg	;显示正确
+	jmp disp
+error:	mov eax,offset errmsg	;显示错误
+disp:	call dispmsg
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0412
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0412.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  22:00               458 eg0412.asm
+2023/10/22  14:57            32,803 eg0412.exe
+2023/10/22  14:57            20,388 eg0412.ilk
+2023/10/22  14:57             5,424 eg0412.lst
+2023/10/22  14:57             2,255 eg0412.obj
+2023/10/22  14:57            74,752 eg0412.pdb
+               6 个文件        136,080 字节
+               0 个目录 43,803,152,384 可用字节
+
+D:\MASM&gt;eg0412.exe
+ERROR ! Overflow!
+</code></pre>
 
                     </main>
 
