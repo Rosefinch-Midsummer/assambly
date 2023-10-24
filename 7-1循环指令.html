@@ -173,6 +173,91 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="7-1循环指令"><a class="header" href="#7-1循环指令">7-1循环指令</a></h1>
+<ul>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E6%8C%87%E4%BB%A4">循环指令</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E6%B1%82%E5%92%8C%E7%A8%8B%E5%BA%8F">数组求和程序</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84">循环程序结构</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/7-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="循环指令"><a class="header" href="#循环指令">循环指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221544347.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221551016.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221551529.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221552081.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221553026.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221553788.png" alt="" /></p>
+<p>IA-32处理器的LOOP指令隐含使用哪个寄存器作为计数器？ECX</p>
+<p>IA-32处理器的JECXZ指令发生跳转的条件是：ECX＝0</p>
+<p>IA-32处理器的LOOP指令包含有对ECX寄存器减1的功能。</p>
+<h2 id="数组求和程序"><a class="header" href="#数组求和程序">数组求和程序</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221557495.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221558748.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221559727.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221601576.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221602222.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221603794.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221604455.png" alt="" /></p>
+<p>使用LOOP指令控制计数循环，循环次数应赋予的寄存器是：ECX</p>
+<p>如果程序需要连续访问大型数组中的每个元素，不适宜采用的存储器寻址方式是：直接寻址</p>
+<p>数据段有语句“array dword 136,-138,133,130,-161”，则“type array”等于：4</p>
+<p>array指向一个数组，指令“<code>add eax,array[ebx*(type array)]</code>”的源操作数寻址方式是：带比例的寄存器变址寻址</p>
+<p>指令“xor eax,eax”的作用是让寄存器EAX等于0。</p>
+<pre><code class="language-asm">; eg0414.asm in Windows Console
+	include io32.inc
+	.data
+array	dword 136,-138,133,130,-161	;数组
+sum	dword ?	;结果变量
+
+	.code
+start:
+	mov ecx,lengthof array	;ECX＝数组元素个数
+	xor eax,eax	;求和初值为0
+	mov ebx,eax	;数组指针为0
+again:	add eax,array[ebx*(type array)]	;求和 
+	inc ebx	;指向下一个数组元素
+	loop again
+	mov sum,eax	;保存结果
+	call dispsid	;显示结果
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0414
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0414.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  22:07               400 eg0414.asm
+2023/10/23  17:58            32,803 eg0414.exe
+2023/10/23  17:58            20,388 eg0414.ilk
+2023/10/23  17:58             4,988 eg0414.lst
+2023/10/23  17:58             1,943 eg0414.obj
+2023/10/23  17:58            74,752 eg0414.pdb
+               6 个文件        135,274 字节
+               0 个目录 43,810,807,808 可用字节
+
+D:\MASM&gt;eg0414.exe
+100
+</code></pre>
+<h2 id="循环程序结构"><a class="header" href="#循环程序结构">循环程序结构</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221606703.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221607204.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221610833.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221611748.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221613458.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221614366.png" alt="" /></p>
+<p>“先循环、后判断”的循环程序结构，循环体至少执行一次。</p>
+<p>“先判断、后循环” 的循环程序结构，循环体可能一次都不执行。</p>
+<p>C语言的语句“for(i=1; i&lt;=100; i++) sum=sum+i;”对应这里的增量计数控制循环。</p>
+<p>C语言的语句“for(i=100; i&gt;0; i--) sum=sum+i;”对应这里的减量计数控制循环。</p>
 
                     </main>
 
