@@ -2124,6 +2124,136 @@ D:\MASM&gt;eg0414.exe
 <p>C语言的语句“for(i=100; i&gt;0; i--) sum=sum+i;”对应这里的减量计数控制循环。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="7-2计数控制循环"><a class="header" href="#7-2计数控制循环">7-2计数控制循环</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/7-2.pdf" target="_blank">在线阅读PDF文档</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221621908.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221628666.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221633245.png" alt="" /></p>
+<p>有50个数值，使用循环结构逐个比较方法求出最大值，程序的循环次数是：49</p>
+<p>数据段有语句“array dword -3,0,20,900,-56”，则“lengthof array”等于：5</p>
+<p>LOOP指令适合实现减量计数控制循环。</p>
+<p>采用寄存器间接寻址从头开始访问数组的每个元素，初始通常应将该寄存器赋值为数组首地址。</p>
+<p>采用寄存器相对寻址从头开始访问数组的每个元素，初始可以将该寄存器赋值为0。</p>
+<pre><code class="language-asm">;eg0415.asm in Windows Console
+	include io32.inc
+	.data
+array	dword -3,0,20,900,587,-632,777,234,-34,-56		;假设一个数组
+count	= lengthof array	;数组的元素个数
+max	dword ?	;存放最大值
+
+	.code
+start:
+	mov ecx,count-1	;元素个数减1是循环次数
+	mov esi,offset array
+	mov eax,[esi]	;取出第一个元素给EAX，用于暂存最大值
+again:	add esi,4
+	cmp eax,[esi]	;与下一个数据比较
+	jge next	;已经是较大值，继续下一个循环比较
+	mov eax,[esi]	;EAX取得更大的数据
+next:	loop again	;计数循环
+	mov max,eax	;保存最大值
+	call dispuid
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;eg0415.exe
+
+D:\MASM&gt;make32 eg0415
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0415.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2023/10/23  18:06               546 eg0415.asm
+2023/10/23  18:06            32,803 eg0415.exe
+2023/10/23  18:06            20,388 eg0415.ilk
+2023/10/23  18:06             5,418 eg0415.lst
+2023/10/23  18:06             2,069 eg0415.obj
+2023/10/23  18:06            74,752 eg0415.pdb
+               6 个文件        135,976 字节
+               0 个目录 43,810,660,352 可用字节
+
+D:\MASM&gt;eg0415.exe
+900
+</code></pre>
+<pre><code class="language-asm">; eg0416.asm in Windows Console
+	include io32.inc
+	.data
+key	byte 234	;假设的一个密钥
+bufnum	= 255
+buffer	byte bufnum+1 dup(0)	;定义键盘输入需要的缓冲区
+msg1	byte 'Enter messge: ',0
+msg2	byte 'Encrypted message: ',0
+msg3	byte 13,10,'Original messge: ',0
+
+	.code
+start:
+	mov eax,offset msg1	;提示输入字符串
+	call dispmsg
+	mov eax,offset buffer	;设置入口参数EAX
+	call readmsg	;调用输入字符串子程序
+	push eax	;字符个数保存进入堆栈
+	mov ecx,eax	;ECX＝实际输入的字符个数，作为循环的次数
+	xor ebx,ebx	;EBX指向输入字符
+	mov al,key	;AL＝密钥
+encrypt:	xor buffer[ebx],al	;异或加密
+	inc ebx
+	dec ecx	;等同于指令：loop encrypt
+	jnz encrypt	;处理下一个字符
+	mov eax,offset msg2
+	call dispmsg
+	mov eax,offset buffer	;显示加密后的密文
+	call dispmsg
+	;
+	pop ecx	;从堆栈弹出字符个数，作为循环的次数
+	xor ebx,ebx	;EBX指向输入字符
+	mov al,key	;AL＝密钥
+decrypt:	xor buffer[ebx],al	;异或解密
+	inc ebx
+	dec ecx
+	jnz decrypt	;处理下一个字符
+	mov eax,offset msg3
+	call dispmsg
+	mov eax,offset buffer	;显示解密后的明文
+	call dispmsg
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0416
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0416.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  22:10             1,071 eg0416.asm
+2023/10/23  18:12            32,803 eg0416.exe
+2023/10/23  18:12            20,388 eg0416.ilk
+2023/10/23  18:12             6,618 eg0416.lst
+2023/10/23  18:12             2,811 eg0416.obj
+2023/10/23  18:12            74,752 eg0416.pdb
+               6 个文件        138,443 字节
+               0 个目录 43,810,365,440 可用字节
+
+D:\MASM&gt;eg0416.exe
+Enter messge: 123456
+Encrypted message: 圬俎哕
+Original messge: 123456
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="7-3条件控制循环"><a class="header" href="#7-3条件控制循环">7-3条件控制循环</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
