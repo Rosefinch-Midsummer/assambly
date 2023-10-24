@@ -2256,6 +2256,61 @@ Original messge: 123456
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="7-3条件控制循环"><a class="header" href="#7-3条件控制循环">7-3条件控制循环</a></h1>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/7-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221639930.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221644352.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221645119.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221645794.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost01/img/202310221646165.png" alt="" /></p>
+<p>条件控制循环通常需要使用条件转移指令进行是否继续循环的判断。</p>
+<p>对于字符串string，如果使用寄存器相对寻址“<code>string[ebx]</code>”访问其头一个元素，EBX应该赋值为：0</p>
+<p>指令“cmp al,0”执行后，指令“jz done”发生转移时，AL寄存器：等于0</p>
+<p>通常情况下，“先判断、后循环”的循环程序结构可以修改为“先循环、后判断”的循环程序结构。</p>
+<p>在汇编语言程序层面，条件控制循环结构与分支结构有相通的地方，循环体可以看做是需要多次执行的分支体。</p>
+<pre><code class="language-asm">; eg0417.asm in Windows Console
+	include io32.inc
+	.data
+string	byte 'Do you have fun with Assembly?',0	;以0结尾的字符串
+
+	.code
+start:
+	xor ebx,ebx	;EBX用于记录字符个数，同时也用于指向字符的指针
+again:	mov al,string[ebx]
+	cmp al,0	;用指令“test al,al”更好
+	jz done
+	inc ebx	;个数加1
+	jmp again	;继续循环
+done:	mov eax,ebx	;显示个数
+	call dispuid 
+
+	exit 0
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0417
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0417.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/10  22:12               385 eg0417.asm
+2023/10/23  18:10            32,803 eg0417.exe
+2023/10/23  18:10            20,388 eg0417.ilk
+2023/10/23  18:10             5,046 eg0417.lst
+2023/10/23  18:10             1,971 eg0417.obj
+2023/10/23  18:10            74,752 eg0417.pdb
+               6 个文件        135,345 字节
+               0 个目录 43,810,512,896 可用字节
+
+D:\MASM&gt;eg0417.exe
+30
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="第8周子程序结构"><a class="header" href="#第8周子程序结构">第8周子程序结构</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
