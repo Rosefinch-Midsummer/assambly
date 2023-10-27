@@ -2314,6 +2314,265 @@ D:\MASM&gt;eg0417.exe
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="8-1子程序设计"><a class="header" href="#8-1子程序设计">8-1子程序设计</a></h1>
+<ul>
+<li><a href="8-1%E5%AD%90%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1.html#call%E5%92%8Cret%E6%8C%87%E4%BB%A4">call和ret指令</a></li>
+<li><a href="8-1%E5%AD%90%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1.html#%E5%AD%90%E7%A8%8B%E5%BA%8F%E8%B0%83%E7%94%A8">子程序调用</a></li>
+<li><a href="8-1%E5%AD%90%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1.html#%E5%AD%90%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1">子程序设计</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/8-1.pdf" target="_blank">在线阅读PDF文档</a></p>
+<h2 id="call和ret指令"><a class="header" href="#call和ret指令">call和ret指令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310231635221.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310231638410.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310231639290.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310231641567.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310231642830.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310231645298.png" alt="" /></p>
+<p>IA-32处理器调用子程序前，将返回地址保存在：堆栈段</p>
+<p>指令“call eax”的指令寻址是：寄存器间接寻址</p>
+<p>主程序调用子程序使用CALL指令。</p>
+<p>子程序返回主程序利用RET指令。</p>
+<p>RET指令通常应该是子程序最后一条执行的指令。</p>
+<h2 id="子程序调用"><a class="header" href="#子程序调用">子程序调用</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250912641.png" alt="" /></p>
+<pre><code class="language-asm">; eg0501.asm in Windows Console
+	include io32.inc
+	.data
+
+	.code
+start:
+        mov eax,1
+		mov ebp,5
+		call subp
+retp1:	mov ecx,3
+retp2:	mov edx,4
+		call disprd
+
+	exit 0
+subp	proc	;过程定义，过程名为subp
+		push ebp
+		mov ebp,esp
+		mov esi,[ebp+4]
+			;ESI＝CALL下一条指令（标号RETP1）的偏移地址
+		mov edi,offset retp2	;EDI＝标号RETP2的偏移地址
+		mov ebx,2
+		pop ebp	;弹出堆栈，保持堆栈平衡
+		ret	;子程序返回
+subp	endp	;过程结束
+
+	end start
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250914196.png" alt="" /></p>
+<pre><code>D:\MASM&gt;make32 eg0501
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0501.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/11  10:06               464 eg0501.asm
+2023/10/25  09:13            32,803 eg0501.exe
+2023/10/25  09:13            20,512 eg0501.ilk
+2023/10/25  09:13             5,175 eg0501.lst
+2023/10/25  09:13             2,159 eg0501.obj
+2023/10/25  09:13            74,752 eg0501.pdb
+               6 个文件        135,865 字节
+               0 个目录 44,002,676,736 可用字节
+
+D:\MASM&gt;eg0501.exe
+EAX=00000001, EBX=00000002, ECX=00000003, EDX=00000004
+ESI=0040101F, EDI=00401024, EBP=00000005, ESP=0019FF74
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250917648.png" alt="" /></p>
+<pre><code class="language-asm">; eg0501a.asm in Windows Console
+	include io32.inc
+	.data
+
+	.code
+start:
+        mov eax,1
+		mov ebp,5
+		call subp
+retp1:	mov ecx,3
+retp2:	mov edx,4
+		call disprd
+
+	exit 0
+subp	proc	;过程定义，过程名为subp
+		push ebp
+		mov ebp,esp
+		mov esi,[ebp+4]
+			;ESI＝CALL下一条指令（标号RETP1）的偏移地址
+		mov edi,offset retp2	;EDI＝标号RETP2的偏移地址
+        MOV [EBP+4],EDI
+		mov ebx,2
+		pop ebp	;弹出堆栈，保持堆栈平衡
+		ret	;子程序返回
+subp	endp	;过程结束
+
+	end start
+</code></pre>
+<p>注意：这里子程序直接返回到了retp2位置，而不是retp1位置。ECX寄存器中的值变成了随机值。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250920454.png" alt="" /></p>
+<pre><code>D:\MASM&gt;make32 eg0501a
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0501a.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/11  10:10               490 eg0501a.asm
+2023/10/25  09:16            32,804 eg0501a.exe
+2023/10/25  09:16            20,516 eg0501a.ilk
+2023/10/25  09:16             5,224 eg0501a.lst
+2023/10/25  09:16             2,170 eg0501a.obj
+2023/10/25  09:16            74,752 eg0501a.pdb
+               6 个文件        135,956 字节
+               0 个目录 44,002,127,872 可用字节
+
+D:\MASM&gt;eg0501a.exe
+EAX=00000001, EBX=00000002, ECX=00401010, EDX=00000004
+ESI=0040101F, EDI=00401024, EBP=00000005, ESP=0019FF74
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250936258.png" alt="" /></p>
+<p>这是底层编程中获取当前地址的一种简单方法。</p>
+<p>指令“<code>mov esi,[ebp+4]</code>”的源操作数来自：堆栈段</p>
+<p>IA-32处理器的CALL指令压入堆栈的返回地址是CALL指令下条指令的地址。</p>
+<p>返回指令RET从当前堆栈顶部获得返回地址。</p>
+<p>语句“call next”之后，接着是语句“next: pop eax”，执行这两个指令后，EAX保存当前指令、即pop指令，也就是标号next的地址。</p>
+<p>子程序开始压入EBP保护，但返回前忘记弹出，这会导致原EBP内容出错，但子程序还可以正常返回。（这是错误说法。）</p>
+<pre><code class="language-asm">; eg0501.asm in Windows Console
+	include io32.inc
+	.data
+
+	.code
+start:
+        mov eax,1
+		mov ebp,5
+		call subp
+retp1:	mov ecx,3
+retp2:	mov edx,4
+		call disprd
+
+	exit 0
+subp	proc	;过程定义，过程名为subp
+		push ebp
+		mov ebp,esp
+		mov esi,[ebp+4]
+			;ESI＝CALL下一条指令（标号RETP1）的偏移地址
+		mov edi,offset retp2	;EDI＝标号RETP2的偏移地址
+		mov ebx,2
+		;pop ebp	;弹出堆栈，保持堆栈平衡
+		ret	;子程序返回
+subp	endp	;过程结束
+
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0501
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0501.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2023/10/25  16:27               465 eg0501.asm
+2023/10/25  16:27            32,803 eg0501.exe
+2023/10/25  16:27            20,512 eg0501.ilk
+2023/10/25  16:27             5,164 eg0501.lst
+2023/10/25  16:27             2,151 eg0501.obj
+2023/10/25  16:27            74,752 eg0501.pdb
+               6 个文件        135,847 字节
+               0 个目录 43,998,162,944 可用字节
+
+D:\MASM&gt;eg0501.exe
+
+D:\MASM&gt;make32 eg0501
+</code></pre>
+<p>程序异常终止了，说明子程序不是正常返回。</p>
+<h2 id="子程序设计"><a class="header" href="#子程序设计">子程序设计</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250938983.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250940886.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250940586.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250941324.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250944559.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310250945125.png" alt="" /></p>
+<pre><code class="language-asm">; eg0502.asm in Windows Console
+	include io32.inc
+	.data
+
+	.code
+start:
+		call dpcrlf
+
+	exit 0
+dpcrlf	proc	;回车换行子程序
+	push eax	;保护寄存器
+	mov al,0dh	;输出回车字符
+	call dispc	;子程序中调用子程序，实现子程序嵌套
+	mov al,0ah	;输出换行字符
+	call dispc	;子程序中调用子程序，实现子程序嵌套
+	pop eax	;恢复寄存器
+	ret	;子程序返回
+dpcrlf	endp
+
+	end start
+</code></pre>
+<pre><code>D:\MASM&gt;make32 eg0502
+Microsoft (R) Macro Assembler Version 6.15.8803
+Copyright (C) Microsoft Corp 1981-2000.  All rights reserved.
+
+ Assembling: eg0502.asm
+Microsoft (R) Incremental Linker Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+ 驱动器 D 中的卷是 软件
+ 卷的序列号是 A4FA-4B01
+
+ D:\MASM 的目录
+
+2011/02/11  10:11               373 eg0502.asm
+2023/10/25  09:53            32,803 eg0502.exe
+2023/10/25  09:53            20,520 eg0502.ilk
+2023/10/25  09:53             4,725 eg0502.lst
+2023/10/25  09:53             1,931 eg0502.obj
+2023/10/25  09:53            74,752 eg0502.pdb
+               6 个文件        135,104 字节
+               0 个目录 43,999,805,440 可用字节
+
+D:\MASM&gt;eg0502.exe
+
+
+D:\MASM&gt;
+</code></pre>
+<p>MASM的过程定义伪指令PROC说明过程（含子程序）开始，与之配合子程序结束时还有一个伪指令是：ENDP</p>
+<p>子程序设计应该关注的原则包括：</p>
+<ul>
+<li>压入和弹出操作要成对使用，保持堆栈平衡</li>
+<li>子程序开始保护寄存器，返回前相应恢复</li>
+<li>子程序允许嵌套</li>
+<li>子程序允许递归</li>
+</ul>
+<p>DOS/Windows操作系统下，控制显示器光标回到下行首列，需要两个控制字符，它们的ASCII值是：0dh，0ah</p>
+<p>过程定义PROC不是一条处理器指令。</p>
+<p>通过CALL和RET指令的学习，你是否忽然发现子程序调用（函数调用）的返回机制原来是堆栈！是的，是堆栈，那个“先进后出”、压入弹出操作的主存区域。</p>
+<p>实际上，堆栈的作用还远不止这个。子程序调用的参数还可以通过堆栈传递，高级语言（包括汇编语言）的局部变量也是建立在堆栈区域。在每个函数调用过程中，都会形成一个堆栈帧。</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="8-2参数传递"><a class="header" href="#8-2参数传递">8-2参数传递</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
