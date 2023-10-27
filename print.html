@@ -3185,6 +3185,93 @@ mean	endp
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="8-3程序模块"><a class="header" href="#8-3程序模块">8-3程序模块</a></h1>
+<ul>
+<li><a href="8-3%E7%A8%8B%E5%BA%8F%E6%A8%A1%E5%9D%97.html#%E6%BA%90%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%92%8C%E6%A8%A1%E5%9D%97%E8%BF%9E%E6%8E%A5">源文件包含和模块连接</a></li>
+<li><a href="8-3%E7%A8%8B%E5%BA%8F%E6%A8%A1%E5%9D%97.html#%E5%AD%90%E7%A8%8B%E5%BA%8F%E5%BA%93%E5%92%8C%E5%BA%93%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB">子程序库和库文件包含</a></li>
+<li><a href="8-3%E7%A8%8B%E5%BA%8F%E6%A8%A1%E5%9D%97.html#%E5%AE%8F%E6%B1%87%E7%BC%96">宏汇编</a></li>
+</ul>
+<p><a href="https://rosefinch-midsummer.github.io/book/file/as/8-3.pdf" target="_blank">在线阅读PDF文档</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251513387.png" alt="" /></p>
+<h2 id="源文件包含和模块连接"><a class="header" href="#源文件包含和模块连接">源文件包含和模块连接</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251515784.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251518661.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251519190.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251520968.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251525335.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251525672.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251526189.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251527035.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251527518.png" alt="" /></p>
+<p>MASM包含源程序文件使用的伪指令是：include</p>
+<p>语句“include io32.inc”说明采用源文件包含这种MASM支持的多模块方法。</p>
+<p>模块连接中的“模块”是指汇编（编译）后形成的目标模块OBJ文件。</p>
+<p>MASM中使用PUBLIC伪指令说明某个变量、子程序等可以被其他模块文件调用。</p>
+<h2 id="子程序库和库文件包含"><a class="header" href="#子程序库和库文件包含">子程序库和库文件包含</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251529501.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251530554.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251533801.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251534797.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251535610.png" alt="" /></p>
+<p>MASM包含子程序库文件使用的伪指令是：includelib</p>
+<p>语句“includelib io32.lib”说明采用库文件包含这种MASM支持的多模块方法。</p>
+<p>子程序库和子程序库文件包含的方法本质没有区别，只是连接过程的具体操作不同罢了。</p>
+<p>存入子程序库的子程序都应该利用PUBLIC说明，表示其他程序模块可以调用。</p>
+<p>本课程io32.inc文件内容如下：</p>
+<pre><code class="language-inc">.nolist
+
+;filename: io32.inc
+;A include file used with io32.lib for Windows Console
+
+	.686
+	.model flat,stdcall
+
+	option casemap:none
+	includelib bin\kernel32.lib
+
+ExitProcess proto,:DWORD
+exit	MACRO dwexitcode
+	invoke ExitProcess,dwexitcode
+	ENDM
+
+;declare procedures for inputting and outputting charactor or string
+	extern readc:near,readmsg:near
+	extern dispc:near,dispmsg:near,dispcrlf:near
+;declare procedures for inputting and outputting binary number
+	extern readbb:near,readbw:near,readbd:near
+	extern dispbb:near,dispbw:near,dispbd:near
+;declare procedures for inputting and outputting hexadecimal number
+	extern readhb:near,readhw:near,readhd:near
+	extern disphb:near,disphw:near,disphd:near
+;declare procedures for inputting and outputting unsigned integer number
+	extern readuib:near,readuiw:near,readuid:near
+	extern dispuib:near,dispuiw:near,dispuid:near
+;declare procedures for inputting and outputting signed integer number
+	extern readsib:near,readsiw:near,readsid:near
+	extern dispsib:near,dispsiw:near,dispsid:near
+;declare procedures for outputting registers
+	extern disprb:near,disprw:near,disprd:near,disprf:near
+;declare I/O libraries
+	includelib io32.lib
+
+.list
+</code></pre>
+<h2 id="宏汇编"><a class="header" href="#宏汇编">宏汇编</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251540850.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251550488.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251551006.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251554527.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251556318.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310251557364.png" alt="" /></p>
+<p>进行宏定义，在MASM中使用macro开始，需要使用endm结束。</p>
+<p>宏的特点不包括：</p>
+<ul>
+<li>宏不减小目标程序，执行速度没有改变</li>
+<li>宏通过形参、实参结合实现参数传递</li>
+<li>宏常依附于源程序</li>
+</ul>
+<p>宏调用在汇编时进行程序语句的展开，不需要返回。</p>
+<p>MASM中，宏需要先定义后使用，且不必在任何段中。</p>
+<p>汇编语言虽然在低层，使用起来好像有些繁琐，但汇编程序也类似高级语言的编译程序可以支持开发大型应用程序的诸多功能，例如，包含源文件（类似C语言的头文件包含）、模块连接、子程序库以及宏等等。汇编语言的功能其实并不弱，早期也有完成使用汇编语言开发的软件系统。</p>
 
                     </main>
 
