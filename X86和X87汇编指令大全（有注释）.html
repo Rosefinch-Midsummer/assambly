@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>X86和X87汇编指令大全（有注释） - Mdbook Template</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="前言.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="X86和X87汇编指令大全（有注释）.html" class="active"><strong aria-hidden="true">2.</strong> X86和X87汇编指令大全（有注释）</a></li><li class="chapter-item expanded "><a href="第1周汇编语言基础.html"><strong aria-hidden="true">3.</strong> 第1周汇编语言基础</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="1-1硬件组成.html"><strong aria-hidden="true">3.1.</strong> 1-1硬件组成</a></li><li class="chapter-item expanded "><a href="1-2程序格式.html"><strong aria-hidden="true">3.2.</strong> 1-2程序格式</a></li><li class="chapter-item expanded "><a href="1-3开发过程.html"><strong aria-hidden="true">3.3.</strong> 1-3开发过程</a></li></ol></li><li class="chapter-item expanded "><a href="第2周数据表示.html"><strong aria-hidden="true">4.</strong> 第2周数据表示</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="2-1常量表达.html"><strong aria-hidden="true">4.1.</strong> 2-1常量表达</a></li><li class="chapter-item expanded "><a href="2-2变量定义.html"><strong aria-hidden="true">4.2.</strong> 2-2变量定义</a></li><li class="chapter-item expanded "><a href="2-3变量应用.html"><strong aria-hidden="true">4.3.</strong> 2-3变量应用</a></li></ol></li><li class="chapter-item expanded "><a href="第3周数据寻址.html"><strong aria-hidden="true">5.</strong> 第3周数据寻址</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="3-1立即数寻址.html"><strong aria-hidden="true">5.1.</strong> 3-1立即数寻址</a></li><li class="chapter-item expanded "><a href="3-2寄存器寻址.html"><strong aria-hidden="true">5.2.</strong> 3-2寄存器寻址</a></li><li class="chapter-item expanded "><a href="3-3存储器寻址.html"><strong aria-hidden="true">5.3.</strong> 3-3存储器寻址</a></li></ol></li><li class="chapter-item expanded "><a href="第4周通用数据处理指令.html"><strong aria-hidden="true">6.</strong> 第4周通用数据处理指令</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="4-1数据传送类指令.html"><strong aria-hidden="true">6.1.</strong> 4-1数据传送类指令</a></li><li class="chapter-item expanded "><a href="4-2算术运算类指令.html"><strong aria-hidden="true">6.2.</strong> 4-2算术运算类指令</a></li><li class="chapter-item expanded "><a href="4-3位操作类指令.html"><strong aria-hidden="true">6.3.</strong> 4-3位操作类指令</a></li></ol></li><li class="chapter-item expanded "><a href="第5周顺序程序结构.html"><strong aria-hidden="true">7.</strong> 第5周顺序程序结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="5-1移位实现乘法.html"><strong aria-hidden="true">7.1.</strong> 5-1移位实现乘法</a></li><li class="chapter-item expanded "><a href="5-2自然数求和.html"><strong aria-hidden="true">7.2.</strong> 5-2自然数求和</a></li></ol></li><li class="chapter-item expanded "><a href="第6周分支程序结构.html"><strong aria-hidden="true">8.</strong> 第6周分支程序结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="6-1转移指令.html"><strong aria-hidden="true">8.1.</strong> 6-1转移指令</a></li><li class="chapter-item expanded "><a href="6-2单分支结构.html"><strong aria-hidden="true">8.2.</strong> 6-2单分支结构</a></li><li class="chapter-item expanded "><a href="6-3双分支结构.html"><strong aria-hidden="true">8.3.</strong> 6-3双分支结构</a></li></ol></li><li class="chapter-item expanded "><a href="第7周循环程序结构.html"><strong aria-hidden="true">9.</strong> 第7周循环程序结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="7-1循环指令.html"><strong aria-hidden="true">9.1.</strong> 7-1循环指令</a></li><li class="chapter-item expanded "><a href="7-2计数控制循环.html"><strong aria-hidden="true">9.2.</strong> 7-2计数控制循环</a></li><li class="chapter-item expanded "><a href="7-3条件控制循环.html"><strong aria-hidden="true">9.3.</strong> 7-3条件控制循环</a></li></ol></li><li class="chapter-item expanded "><a href="第8周子程序结构.html"><strong aria-hidden="true">10.</strong> 第8周子程序结构</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="8-1子程序设计.html"><strong aria-hidden="true">10.1.</strong> 8-1子程序设计</a></li><li class="chapter-item expanded "><a href="8-2参数传递.html"><strong aria-hidden="true">10.2.</strong> 8-2参数传递</a></li><li class="chapter-item expanded "><a href="8-3程序模块.html"><strong aria-hidden="true">10.3.</strong> 8-3程序模块</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Mdbook Template</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="x86和x87汇编指令大全有注释"><a class="header" href="#x86和x87汇编指令大全有注释">X86和X87汇编指令大全（有注释）</a></h1>
+<ul>
+<li><a href="#x86">x86</a>
+<ul>
+<li><a href="#%E4%B8%80%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E6%8C%87%E4%BB%A4">一、数据传输指令</a></li>
+<li><a href="#%E4%BA%8C%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">二、算术运算指令</a></li>
+<li><a href="#%E4%B8%89%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">三、逻辑运算指令</a></li>
+<li><a href="#%E5%9B%9B%E4%B8%B2%E6%8C%87%E4%BB%A4">四、串指令</a></li>
+<li><a href="#%E4%BA%94%E7%A8%8B%E5%BA%8F%E8%BD%AC%E7%A7%BB%E6%8C%87%E4%BB%A4">五、程序转移指令</a></li>
+<li><a href="#%E5%85%AD%E4%BC%AA%E6%8C%87%E4%BB%A4">六、伪指令</a></li>
+<li><a href="#%E4%B8%83%E5%A4%84%E7%90%86%E6%9C%BA%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4%E6%A0%87%E5%BF%97%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4">七、处理机控制指令：标志处理指令</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B5%AE%E7%82%B9%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4%E9%9B%86">浮点运算指令集</a>
+<ul>
+<li><a href="#%E4%B8%80%E6%8E%A7%E5%88%B6%E6%8C%87%E4%BB%A4">一、控制指令</a></li>
+<li><a href="#%E4%BA%8C%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4">二、数据传送指令</a></li>
+<li><a href="#%E4%B8%89%E6%AF%94%E8%BE%83%E6%8C%87%E4%BB%A4">三、比较指令</a></li>
+<li><a href="#%E5%9B%9B%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4">四、运算指令</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="x86"><a class="header" href="#x86">x86</a></h1>
+<h2 id="一数据传输指令"><a class="header" href="#一数据传输指令">一、数据传输指令</a></h2>
+<p>它们在存贮器和寄存器、寄存器和输入输出端口之间传送数据.</p>
+<ol>
+<li>通用数据传送指令.<br />
+MOV     传送字或字节.<br />
+MOVSX   先符号扩展,再传送.<br />
+MOVZX   先零扩展,再传送.<br />
+PUSH    把字压入堆栈.<br />
+POP     把字弹出堆栈.<br />
+PUSHA   把AX,CX,DX,BX,SP,BP,SI,DI依次压入堆栈.<br />
+POPA    把DI,SI,BP,SP,BX,DX,CX,AX依次弹出堆栈.<br />
+PUSHAD  把EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI依次压入堆栈.<br />
+POPAD   把EDI,ESI,EBP,ESP,EBX,EDX,ECX,EAX依次弹出堆栈.<br />
+BSWAP   交换32位寄存器里字节的顺序<br />
+XCHG    交换字或字节.(至少有一个操作数为寄存器,段寄存器不可作为操作数)<br />
+CMPXCHG 比较并交换操作数.(第二个操作数必须为累加器AL/AX/EAX)<br />
+XADD    先交换再累加.(结果在第一个操作数里)<br />
+XLAT    字节查表转换.----BX指向一张256字节的表的起点,AL为表的索引值(0-255,即0-FFH);返回AL为查表结果.([BX+AL]-&gt;AL)</li>
+<li>输入输出端口传送指令.<br />
+IN      I/O端口输入. ( 语法: IN   累加器,    {端口号│DX} )<br />
+OUT     I/O端口输出. ( 语法: OUT {端口号│DX},累加器 )输入输出端口由立即方式指定时,    其范围是 0-255; 由寄存器 DX 指定时,其范围是    0-65535.</li>
+<li>目的地址传送指令.<br />
+LEA     装入有效地址.例: LEA DX,string ;把偏移地址存到DX.<br />
+LDS     传送目标指针,把指针内容装入DS.例: LDS SI,string   ;把段地址:偏移地址存到DS:SI.<br />
+LES     传送目标指针,把指针内容装入ES.例: LES DI,string   ;把段地址:偏移地址存到ES:DI.<br />
+LFS     传送目标指针,把指针内容装入FS.例: LFS DI,string   ;把段地址:偏移地址存到FS:DI.<br />
+LGS     传送目标指针,把指针内容装入GS.例: LGS DI,string   ;把段地址:偏移地址存到GS:DI.<br />
+LSS     传送目标指针,把指针内容装入SS.例: LSS DI,string   ;把段地址:偏移地址存到SS:DI.</li>
+<li>标志传送指令.<br />
+LAHF    标志寄存器传送,把标志装入AH.<br />
+SAHF    标志寄存器传送,把AH内容装入标志寄存器.<br />
+PUSHF   标志入栈.<br />
+POPF    标志出栈.<br />
+PUSHD   32位标志入栈.<br />
+POPD    32位标志出栈.</li>
+</ol>
+<h2 id="二算术运算指令"><a class="header" href="#二算术运算指令">二、算术运算指令</a></h2>
+<pre><code>ADD     加法.  
+ADC     带进位加法.  
+INC     加 1.  
+AAA     加法的ASCII码调整.  
+DAA     加法的十进制调整.  
+SUB     减法.  
+SBB     带借位减法.  
+DEC     减 1.  
+NEG     求反(以    0 减之).  
+CMP     比较.(两操作数作减法,仅修改标志位,不回送结果).  
+AAS     减法的ASCII码调整.  
+DAS     减法的十进制调整.  
+MUL     无符号乘法.结果回送AH和AL(字节运算),或DX和AX(字运算),  
+IMUL    整数乘法.结果回送AH和AL(字节运算),或DX和AX(字运算),  
+AAM     乘法的ASCII码调整.  
+DIV     无符号除法.结果回送:商回送AL,余数回送AH, (字节运算);或 商回送AX,余数回送DX, (字运算).  
+IDIV    整数除法.结果回送:商回送AL,余数回送AH, (字节运算);或 商回送AX,余数回送DX, (字运算).  
+AAD     除法的ASCII码调整.  
+CBW     字节转换为字. (把AL中字节的符号扩展到AH中去)  
+CWD     字转换为双字. (把AX中的字的符号扩展到DX中去)  
+CWDE    字转换为双字. (把AX中的字符号扩展到EAX中去)  
+CDQ     双字扩展. (把EAX中的字的符号扩展到EDX中去)  
+</code></pre>
+<h2 id="三逻辑运算指令"><a class="header" href="#三逻辑运算指令">三、逻辑运算指令</a></h2>
+<pre><code>AND     与运算.  
+OR      或运算.  
+XOR     异或运算.  
+NOT     取反.  
+TEST    测试.(两操作数作与运算,仅修改标志位,不回送结果).  
+SHL     逻辑左移.  
+SAL     算术左移.(=SHL)  
+SHR     逻辑右移.  
+SAR     算术右移.(=SHR)  
+ROL     循环左移.  
+ROR     循环右移.  
+RCL     通过进位的循环左移.  
+RCR     通过进位的循环右移.  
+          以上八种移位指令,其移位次数可达255次.  
+          移位一次时, 可直接用操作码. 如 SHL AX,1.  
+          移位&gt;1次时, 则由寄存器CL给出移位次数.  
+          如 MOV CL,04   SHL AX,CL  
+</code></pre>
+<h2 id="四串指令"><a class="header" href="#四串指令">四、串指令</a></h2>
+<pre><code>DS:SI 源串段寄存器 :源串变址.  
+ES:DI 目标串段寄存器:目标串变址.  
+CX 重复次数计数器.  
+AL/AX 扫描值.  
+D标志   0表示重复操作中SI和DI应自动增量; 1表示应自动减量.  
+Z标志   用来控制扫描或比较操作的结束.  
+MOVS    串传送.( MOVSB 传送字符. MOVSW 传送字. MOVSD 传送双字. )  
+CMPS    串比较.( CMPSB 比较字符. CMPSW 比较字. )  
+SCAS    串扫描.把AL或AX的内容与目标串作比较,比较结果反映在标志位.  
+LODS    装入串.把源串中的元素(字或字节)逐一装入AL或AX中.( LODSB 传送字符. LODSW 传送字.    LODSD 传送双字. )  
+STOS    保存串.是LODS的逆过程.  
+REP         当CX/ECX&lt;&gt;0时重复.  
+REPE/REPZ   当ZF=1或比较结果相等,且CX/ECX&lt;&gt;0时重复.  
+REPNE/REPNZ 当ZF=0或比较结果不相等,且CX/ECX&lt;&gt;0时重复.  
+REPC        当CF=1且CX/ECX&lt;&gt;0时重复.  
+REPNC       当CF=0且CX/ECX&lt;&gt;0时重复.  
+</code></pre>
+<h2 id="五程序转移指令"><a class="header" href="#五程序转移指令">五、程序转移指令</a></h2>
+<ol>
+<li>无条件转移指令 (长转移)<br />
+JMP         无条件转移指令<br />
+CALL        过程调用<br />
+RET/RETF    过程返回.</li>
+<li>条件转移指令   (短转移,-128到+127的距离内)( 当且仅当(SF XOR OF)=1时,OP1&lt;OP2 )<br />
+JA/JNBE     不小于或不等于时转移.<br />
+JAE/JNB     大于或等于转移.<br />
+JB/JNAE     小于转移.<br />
+JBE/JNA     小于或等于转移.<br />
+以上四条,测试无符号整数运算的结果(标志C和Z).<br />
+JG/JNLE     大于转移.<br />
+JGE/JNL     大于或等于转移.<br />
+JL/JNGE     小于转移.<br />
+JLE/JNG     小于或等于转移.<br />
+以上四条,测试带符号整数运算的结果(标志S,O和Z).<br />
+JE/JZ       等于转移.<br />
+JNE/JNZ     不等于时转移.<br />
+JC          有进位时转移.<br />
+JNC         无进位时转移.<br />
+JNO         不溢出时转移.<br />
+JNP/JPO     奇偶性为奇数时转移.<br />
+JNS         符号位为 &quot;0&quot; 时转移.<br />
+JO          溢出转移.<br />
+JP/JPE      奇偶性为偶数时转移.<br />
+JS          符号位为 &quot;1&quot; 时转移.</li>
+<li>循环控制指令(短转移)<br />
+LOOP            CX不为零时循环.<br />
+LOOPE/LOOPZ     CX不为零且标志Z=1时循环.<br />
+LOOPNE/LOOPNZ   CX不为零且标志Z=0时循环.<br />
+JCXZ            CX为零时转移.<br />
+JECXZ           ECX为零时转移.</li>
+<li>中断指令<br />
+INT         中断指令<br />
+INTO        溢出中断<br />
+IRET        中断返回</li>
+<li>处理器控制指令<br />
+HLT         处理器暂停,  直到出现中断或复位信号才继续.<br />
+WAIT        当芯片引线TEST为高电平时使CPU进入等待状态.<br />
+ESC         转换到外处理器.<br />
+LOCK        封锁总线.<br />
+NOP         空操作.<br />
+STC         置进位标志位.<br />
+CLC         清进位标志位.<br />
+CMC         进位标志取反.<br />
+STD         置方向标志位.<br />
+CLD         清方向标志位.<br />
+STI         置中断允许位.<br />
+CLI         清中断允许位.</li>
+</ol>
+<h2 id="六伪指令"><a class="header" href="#六伪指令">六、伪指令</a></h2>
+<pre><code>DW          定义字(2字节).  
+PROC        定义过程.  
+ENDP        过程结束.  
+SEGMENT     定义段.  
+ASSUME      建立段寄存器寻址.  
+ENDS        段结束.  
+END         程序结束.  
+</code></pre>
+<h2 id="七处理机控制指令标志处理指令"><a class="header" href="#七处理机控制指令标志处理指令">七、处理机控制指令：标志处理指令</a></h2>
+<pre><code>CLC     进位位置0指令  
+CMC     进位位求反指令  
+STC     进位位置为1指令  
+CLD     方向标志置1指令  
+STD     方向标志位置1指令  
+CLI     中断标志置0指令  
+STI     中断标志置1指令  
+NOP     无操作  
+HLT     停机  
+WAIT    等待  
+ESC     换码  
+LOCK    封锁  
+</code></pre>
+<h1 id="浮点运算指令集"><a class="header" href="#浮点运算指令集">浮点运算指令集</a></h1>
+<h2 id="一控制指令"><a class="header" href="#一控制指令">一、控制指令</a></h2>
+<p>(带9B的控制指令前缀F变为FN时浮点不检查，机器码去掉9B)</p>
+<p>FINIT                 初始化浮点部件                  机器码  9B DB E3<br />
+FCLEX                 清除异常                         机器码  9B DB E2<br />
+FDISI                 浮点检查禁止中断                 机器码  9B DB E1<br />
+FENI                  浮点检查禁止中断二            机器码  9B DB E0<br />
+WAIT                  同步CPU和FPU                    机器码  9B<br />
+FWAIT                 同步CPU和FPU                    机器码  D9 D0<br />
+FNOP                  无操作                          机器码  DA E9<br />
+FXCH                  交换ST(0)和ST(1)                机器码  D9 C9<br />
+FXCH ST(i)            交换ST(0)和ST(i)                机器码  D9 C1iii<br />
+FSTSW ax              状态字到ax                       机器码  9B DF E0<br />
+FSTSW   word ptr mem  状态字到mem                      机器码  9B DD mm111mmm<br />
+FLDCW   word ptr mem  mem到状态字                      机器码  D9 mm101mmm<br />
+FSTCW   word ptr mem  控制字到mem                      机器码  9B D9 mm111mmm</p>
+<p>FLDENV  word ptr mem  mem到全环境                      机器码  D9 mm100mmm<br />
+FSTENV  word ptr mem  全环境到mem                      机器码  9B D9 mm110mmm<br />
+FRSTOR  word ptr mem  mem到FPU状态                    机器码  DD mm100mmm<br />
+FSAVE   word ptr mem  FPU状态到mem                    机器码  9B DD mm110mmm</p>
+<p>FFREE ST(i)           标志ST(i)未使用                   机器码  DD C0iii<br />
+FDECSTP               减少栈指针1-&gt;0 2-&gt;1             机器码  D9 F6<br />
+FINCSTP               增加栈指针0-&gt;1 1-&gt;2             机器码  D9 F7<br />
+FSETPM                浮点设置保护                       机器码  DB E4</p>
+<h2 id="二数据传送指令"><a class="header" href="#二数据传送指令">二、数据传送指令</a></h2>
+<p>FLDZ                  将0.0装入ST(0)                  机器码  D9 EE<br />
+FLD1                  将1.0装入ST(0)                  机器码  D9 E8<br />
+FLDPI                 将π装入ST(0)                    机器码  D9 EB<br />
+FLDL2T                将ln10/ln2装入ST(0)             机器码  D9 E9<br />
+FLDL2E                将1/ln2装入ST(0)                机器码  D9 EA<br />
+FLDLG2                将ln2/ln10装入ST(0)             机器码  D9 EC<br />
+FLDLN2                将ln2装入ST(0)                  机器码  D9 ED</p>
+<p>FLD    real4 ptr mem  装入mem的单精度浮点数             机器码  D9 mm000mmm<br />
+FLD    real8 ptr mem  装入mem的双精度浮点数             机器码  DD mm000mmm<br />
+FLD   real10 ptr mem  装入mem的十字节浮点数             机器码  DB mm101mmm</p>
+<p>FILD    word ptr mem  装入mem的二字节整数              机器码  DF mm000mmm<br />
+FILD   dword ptr mem  装入mem的四字节整数              机器码  DB mm000mmm<br />
+FILD   qword ptr mem  装入mem的八字节整数              机器码  DF mm101mmm</p>
+<p>FBLD   tbyte ptr mem  装入mem的十字节BCD数            机器码  DF mm100mmm</p>
+<p>FST    real4 ptr mem  保存单精度浮点数到mem             机器码  D9 mm010mmm<br />
+FST    real8 ptr mem  保存双精度浮点数到mem             机器码  DD mm010mmm</p>
+<p>FIST    word ptr mem  保存二字节整数到mem              机器码  DF mm010mmm<br />
+FIST   dword ptr mem  保存四字节整数到mem              机器码  DB mm010mmm</p>
+<p>FSTP   real4 ptr mem  保存单精度浮点数到mem并出栈      机器码  D9 mm011mmm<br />
+FSTP   real8 ptr mem  保存双精度浮点数到mem并出栈      机器码  DD mm011mmm<br />
+FSTP  real10 ptr mem  保存十字节浮点数到mem并出栈      机器码  DB mm111mmm</p>
+<p>FISTP   word ptr mem  保存二字节整数到mem并出栈           机器码  DF mm011mmm<br />
+FISTP  dword ptr mem  保存四字节整数到mem并出栈           机器码  DB mm011mmm<br />
+FISTP  qword ptr mem  保存八字节整数到mem并出栈           机器码  DF mm111mmm</p>
+<p>FBSTP  tbyte ptr mem  保存十字节BCD数到mem并出栈     机器码  DF mm110mmm</p>
+<p>FCMOVB                ST(0),ST(i) &lt;时传送              机器码  DA C0iii<br />
+FCMOVBE               ST(0),ST(i) &lt;=时传送             机器码  DA D0iii<br />
+FCMOVE                ST(0),ST(i) =时传送             机器码  DA C1iii<br />
+FCMOVNB               ST(0),ST(i) &gt;=时传送             机器码  DB C0iii<br />
+FCMOVNBE              ST(0),ST(i) &gt;时传送              机器码  DB D0iii<br />
+FCMOVNE               ST(0),ST(i) !=时传送            机器码  DB C1iii<br />
+FCMOVNU               ST(0),ST(i) 有序时传送        机器码  DB D1iii<br />
+FCMOVU                ST(0),ST(i) 无序时传送        机器码  DA D1iii</p>
+<h2 id="三比较指令"><a class="header" href="#三比较指令">三、比较指令</a></h2>
+<p>FCOM                  ST(0)-ST(1)                      机器码  D8 D1<br />
+FCOMI                 ST(0),ST(i)  ST(0)-ST(1)         机器码  DB F0iii<br />
+FCOMIP                ST(0),ST(i)  ST(0)-ST(1)并出栈   机器码  DF F0iii<br />
+FCOM   real4 ptr mem  ST(0)-实数mem                      机器码  D8 mm010mmm<br />
+FCOM   real8 ptr mem  ST(0)-实数mem                      机器码  DC mm010mmm</p>
+<p>FICOM   word ptr mem  ST(0)-整数mem                      机器码  DE mm010mmm<br />
+FICOM  dword ptr mem  ST(0)-整数mem                      机器码  DA mm010mmm<br />
+FICOMP  word ptr mem  ST(0)-整数mem并出栈               机器码  DE mm011mmm<br />
+FICOMP dword ptr mem  ST(0)-整数mem并出栈               机器码  DA mm011mmm</p>
+<p>FTST                  ST(0)-0                          机器码  D9 E4<br />
+FUCOM  ST(i)          ST(0)-ST(i)                      机器码  DD E0iii<br />
+FUCOMP ST(i)          ST(0)-ST(i)并出栈                   机器码  DD E1iii<br />
+FUCOMPP               ST(0)-ST(1)并二次出栈             机器码  DA E9<br />
+FXAM                  ST(0)规格类型                    机器码  D9 E5</p>
+<h2 id="四运算指令"><a class="header" href="#四运算指令">四、运算指令</a></h2>
+<p>FADD                  把目的操作数 (直接接在指令后的变量或堆栈缓存器) 与来源操作数 (接在目的操作数后的变量或堆栈缓存器)  相加，并将结果存入目的操作数<br />
+FADDP  ST(i),ST       这个指令是使目的操作数加上 ST  缓存器，并弹出 ST 缓存器，而目的操作数必须是堆栈缓存器的其中之一，最后不管目的操作数为何，经弹出一次后，目的操作数会变成上一个堆栈缓存器了<br />
+FIADD                 FIADD 是把 ST   加上来源操作数，然后再存入 ST 缓存器，来源操作数必须是字组整数或短整数形态的变数</p>
+<p>FSUB                  减<br />
+FSUBP<br />
+FSUBR                 减数与被减数互换<br />
+FSUBRP<br />
+FISUB<br />
+FISUBR</p>
+<p>FMUL                  乘<br />
+FMULP<br />
+FIMUL</p>
+<p>FDIV                  除<br />
+FDIVP<br />
+FDIVR<br />
+FDIVRP<br />
+FIDIV<br />
+FIDIVR</p>
+<p>FCHS                  改变 ST 的正负值</p>
+<p>FABS                  把 ST  之值取出，取其绝对值后再存回去。</p>
+<p>FSQRT                 将 ST  之值取出，开根号后再存回去。</p>
+<p>FSCALE                这个指令是计算 ST*2^ST(1)之值，再把结果存入 ST 里而 ST(1)   之值不变。ST(1)  必须是在 -32768 到 32768 (-215 到 215 )之间的整数，如果超过这个范围计算结果无法确定，如果不是整数 ST(1)    会先向零舍入成整数再计算。所以为安全起见，最好是由字组整数载入到 ST(1) 里。</p>
+<p>FRNDINT               这个指令是把 ST 的数值舍入成整数，FPU    提供四种舍入方式，由 FPU 的控制字组(control    word)中的 RC 两个位决定<br />
+RC    舍入控制<br />
+00    四舍五入<br />
+01    向负无限大舍入<br />
+10    向正无限大舍入<br />
+11    向零舍去</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="前言.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="第1周汇编语言基础.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="前言.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="第1周汇编语言基础.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
