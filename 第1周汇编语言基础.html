@@ -173,6 +173,92 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="第1周汇编语言基础"><a class="header" href="#第1周汇编语言基础">第1周汇编语言基础</a></h1>
+<ul>
+<li><a href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E6%BA%90%E7%A8%8B%E5%BA%8F%E6%A0%BC%E5%BC%8F">汇编语言源程序格式</a></li>
+<li><a href="#dosbox%E7%9A%84debug%E5%91%BD%E4%BB%A4">Dosbox的Debug命令</a></li>
+<li><a href="#8086pc%E8%AF%BB%E5%8F%96%E5%92%8C%E6%89%A7%E8%A1%8C%E6%8C%87%E4%BB%A4%E8%BF%87%E7%A8%8B">8086PC读取和执行指令过程</a></li>
+<li><a href="#%E5%92%8C"><code>[]和()</code></a></li>
+</ul>
+<h2 id="汇编语言源程序格式"><a class="header" href="#汇编语言源程序格式">汇编语言源程序格式</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272157437.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272202511.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272201342.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272204357.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272204021.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272206724.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272206673.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301514353.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301515204.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301516294.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301518309.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301522524.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301522381.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301523391.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301524958.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301524057.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301524116.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301525109.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301526715.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301527413.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301527081.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301528793.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301528608.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301529607.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301530129.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301531415.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301531047.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301532508.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310301532702.png" alt="" /></p>
+<h2 id="dosbox的debug命令"><a class="header" href="#dosbox的debug命令">Dosbox的Debug命令</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271808862.png" alt="" /></p>
+<p>DEBUG是专门为汇编语言设计的一种调试工具，它通过步进，设置断点等方式为汇编语言程序员提供了非常有效的调试手段。</p>
+<p>在DOS提示符下，可以键入命令：</p>
+<p><code>C&gt; DEBUG [d:][path][文件名][参数1][参数2]</code></p>
+<p>其中，文件名是被调试文件的名称，它必须是执行文件（EXE），两个参数是运行被调试文件时所需要的命令参数，在DEBUG程序调入后，出现提示符：
+　　
+Debug的主要命令</p>
+<div class="table-wrapper"><table><thead><tr><th>名称</th><th>解释</th><th>格式</th></tr></thead><tbody>
+<tr><td>a(Assemble)</td><td>逐行汇编</td><td>a [address]</td></tr>
+<tr><td>c(Compare)</td><td>比较两内存块</td><td>c range address</td></tr>
+<tr><td>d(Dump)</td><td>内存16进制显示</td><td>d [address]或 d [range]</td></tr>
+<tr><td>e(Enter)</td><td>修改内存字节</td><td>e address [list]</td></tr>
+<tr><td>f(fin)</td><td>预置一段内存</td><td>f range list</td></tr>
+<tr><td>g(Go)</td><td>执行程序</td><td>g [=address][address…]</td></tr>
+<tr><td>h(Hexavithmetic)</td><td>制算术运算</td><td>h value value</td></tr>
+<tr><td>i(Input)</td><td>从指定端口地址输入</td><td>i pataddress</td></tr>
+<tr><td>l(Load)</td><td>读盘</td><td>l [address [driver seetor]]</td></tr>
+<tr><td>m(Move)</td><td>内存块传送</td><td>m range address</td></tr>
+<tr><td>n(Name)</td><td>置文件名</td><td>n filespec [filespec…]</td></tr>
+<tr><td>o(Output)</td><td>从指定端口地址输出</td><td>o portadress byte</td></tr>
+<tr><td>P</td><td>执行循环、重复的字符串指令、软件中断或子例程。不跟踪内部。</td><td>p</td></tr>
+<tr><td>q(Quit)</td><td>结束</td><td>q</td></tr>
+<tr><td>r(Register)</td><td>显示和修改寄存器</td><td>r [register name]</td></tr>
+<tr><td>s(Search)</td><td>查找字节串</td><td>s range list</td></tr>
+<tr><td>t(Trace)</td><td>跟踪执行</td><td>t [=address] [value]</td></tr>
+<tr><td>u(Unassemble)</td><td>反汇编</td><td>u [address ]或range</td></tr>
+<tr><td>w(Write)</td><td>存盘</td><td>w [address[driver sector secnum]]</td></tr>
+</tbody></table>
+</div>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271811635.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271815859.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271820299.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271823436.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271826822.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271826308.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271829441.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271829267.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291834382.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291837085.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291839389.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291840502.png" alt="" /></p>
+<h2 id="8086pc读取和执行指令过程"><a class="header" href="#8086pc读取和执行指令过程">8086PC读取和执行指令过程</a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271836135.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271839317.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271840550.png" alt="" /></p>
+<h2 id="和"><a class="header" href="#和"><code>[]和()</code></a></h2>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291850974.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291851617.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310291854492.png" alt="" /></p>
 
                     </main>
 
