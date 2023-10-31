@@ -828,6 +828,26 @@ Hello, Assembly!
 </div>
 <p>对于十进制数96，如果采用8位8421BCD码表达，应该是1001 0110B。</p>
 <p>计算机中有一个“01100001”编码。如果把它认为是无符号整数，它是十进制数97；如果认为它是BCD码，则表示真值61。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271850178.png" alt="" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310271911829.png" alt="" /></p>
+<pre><code class="language-asm">assume cs:code,ds:data
+data segment
+db 3 dup(0)
+db 3 dup(0,1,2)
+db 80 dup(0)
+db 3 dup('abc','ABC')
+data ends
+code  segment
+        mov ax,data
+        mov ds,ax
+       
+        mov ax,4c00h
+        int 21h
+code ends
+end 
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/Rosefinch-Midsummer/MyImagesHost02/img/202310272151117.png" alt="" /></p>
+<p>按视频中的写法可以产生这种结果，不按这种写法（比如写start、把assume放中间）就无法在cs段内容得到这种结果，暂时还不知道为何！</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="2-1常量表达"><a class="header" href="#2-1常量表达">2-1常量表达</a></h1>
 <ul>
